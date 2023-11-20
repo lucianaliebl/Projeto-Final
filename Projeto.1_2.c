@@ -17,22 +17,20 @@
 
 
     while(1){
-    printf("Escolha o filme pelo seu numero: ");
-    if(scanf("%d", &filme_numero)==1){
+        printf("Escolha o filme pelo seu numero: ");
+        if(scanf("%d", &filme_numero)==1){
         
-    if(filme_numero >= 1 &&filme_numero <= 3){
+            if(filme_numero >= 1 &&filme_numero <= 3){
 
-    printf("Filme escolhido: %s\n",nomes_filmes[filme_numero - 1]);
-    break;
+                printf("Filme escolhido: %s\n",nomes_filmes[filme_numero - 1]);
+                break;
 
-    } else {
-        printf("Numero de opcao invalida. Por favor, escolha novamente numeros de 1 a 3.\n\n");
-        while (getchar() != '\n');
-    } 
-
+            } else {
+                printf("Numero de opcao invalida. Por favor, escolha novamente numeros de 1 a 3.\n\n");
+                while (getchar() != '\n');
+            } 
+        }
     }
-    }
-
 
     free(filme_disponiveis);
 
