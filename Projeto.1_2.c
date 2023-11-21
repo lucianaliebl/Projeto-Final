@@ -11,11 +11,11 @@ struct cadastro_filmes{
 
 int main(){
     int senha[4] = {1,2,3,4};
-     int senha_informada;
+    int senha_informada;
 
     while(1){
-    printf("Gerente insira a senha de acesso:");
-    scanf("%d",&senha_informada);
+        printf("Gerente insira a senha de acesso:\n"); // a senha é 1 2 3 4 (com espaços entre os números)
+        scanf("%d",&senha_informada);
 
         if(senha_informada == senha[0]){
             printf("Acesso autorizado como gerente.\n");
@@ -26,12 +26,14 @@ int main(){
                 while (getchar() != '\n');
         }   
     }
+
     // Realiza o cadastro dos 4 filmes com quantas sessões disponíveis para cada filme, o horário de cada sessão e o nº de cadeiras em cada sessão
     struct cadastro_filmes c[4]; // permite o cadastro de 4 filmes 
+    
     for(int i = 0; i < 4; i++){
         
-        printf("Qual o filme a ser cadastrado?\n");
-         while (getchar() != '\n');
+        printf("Qual o nome do filme a ser cadastrado?\n");
+        while (getchar() != '\n');
         fgets(c[i].filme, sizeof(c[i]), stdin);
         c[i].filme[strcspn(c[i].filme, "\n")] = '\0'; // remove a quebra de linha para conseguir inserir quantas sessões disponíveis para o filme
 
@@ -45,14 +47,16 @@ int main(){
             fgets(c[i].hor_sessoes, sizeof(c[i].hor_sessoes),stdin);
             c[i].hor_sessoes[strcspn(c[i].hor_sessoes, "\n")] = '\0'; // remove a quebra de linha para conseguir inserir um horário no terminal 
         
-            printf("Quantas cadeiras disponiveis para a sessao %s\n", c[i].hor_sessoes);
+            printf("Quantas cadeiras disponiveis para a sessao das %s\n", c[i].hor_sessoes);
             scanf("%d", &c[i].cadeiras);
             getchar();
         }
     }
-        printf("%30s\n", "FILMES DISPONIVEIS\n");
-        printf("\n=============================================\n");
+        
     // Imprime a lista de filmes com a quatidade de sessões, horários das sessões e as cadeiras disponíveis para cada sessão
+    printf("%30s\n", "FILMES DISPONIVEIS");
+    printf("=============================================");
+
     for(int i = 0; i < 4; i++){
         printf("\n=============================================\n");
         printf("Filme: %s\n", c[i].filme);
