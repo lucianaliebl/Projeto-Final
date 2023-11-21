@@ -10,7 +10,6 @@ struct cadastro_filmes{
 };
 
 int main(){
-    struct cadastro_filmes c[4]; // permite o cadastro de 4 filmes 
     int senha[4] = {1,2,3,4};
      int senha_informada;
 
@@ -18,18 +17,17 @@ int main(){
     printf("Gerente insira a senha de acesso:");
     scanf("%d",&senha_informada);
 
-if(senha_informada == senha[0]){
-    printf("Acesso autorizado como gerente.\n");
-//continuação da parte da luciana
-break;
-
-}
-else{
-    printf("Senha incorreta. Por favor, tente novamente.\n\n");
-      while (getchar() != '\n');
-}
-}
+        if(senha_informada == senha[0]){
+            printf("Acesso autorizado como gerente.\n");
+                break;
+        }    
+        else{
+            printf("Senha incorreta. Por favor, tente novamente.\n\n");
+                while (getchar() != '\n');
+        }   
+    }
     // Realiza o cadastro dos 4 filmes com quantas sessões disponíveis para cada filme, o horário de cada sessão e o nº de cadeiras em cada sessão
+    struct cadastro_filmes c[4]; // permite o cadastro de 4 filmes 
     for(int i = 0; i < 4; i++){
         
         printf("Qual o filme a ser cadastrado?\n");
@@ -52,7 +50,8 @@ else{
             getchar();
         }
     }
-
+        printf("%30s\n", "FILMES DISPONIVEIS\n");
+        printf("\n=============================================\n");
     // Imprime a lista de filmes com a quatidade de sessões, horários das sessões e as cadeiras disponíveis para cada sessão
     for(int i = 0; i < 4; i++){
         printf("\n=============================================\n");
@@ -62,38 +61,5 @@ else{
             printf("Sessao %d: %s     Cadeiras disponiveis: %d\n", j + 1, c[i].hor_sessoes, c[i].cadeiras);
         }
     }   
-
-    char *filme_disponiveis;
-    int filme_numero;
-    char *nomes_filmes[] = {"JOGOS VORAZES: A CANTIGA DOS PASSAROS E DAS SERPENTES","FIVE NIGHTS AT FREDDY'S: O PESADELO SEM FIM","AS MARVELS"};
-
-    filme_disponiveis = (char *) malloc(300*sizeof(char));
-
-    printf("%30s\n", "Filmes disponiveis\n");
-    printf("1. %s\n",nomes_filmes[0]);
-    printf("2. %s\n",nomes_filmes[1]);
-    printf("3. %s\n",nomes_filmes[2]);
-
-    printf("\n");
-
-
-    while(1){
-        printf("Escolha o filme pelo seu numero: ");
-        if(scanf("%d", &filme_numero)==1){
-        
-            if(filme_numero >= 1 &&filme_numero <= 3){
-
-                printf("Filme escolhido: %s\n",nomes_filmes[filme_numero - 1]);
-                break;
-
-            } else {
-                printf("Numero de opcao invalida. Por favor, escolha novamente numeros de 1 a 3.\n\n");
-                while (getchar() != '\n');
-            } 
-        }
-    }
-
-    free(filme_disponiveis);
-
         return 0;
     }
