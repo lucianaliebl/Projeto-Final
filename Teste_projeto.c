@@ -36,6 +36,15 @@ int main(){
 
     }
 
+    for(int i = 0; i < 4; i++){
+        printf("\n==================================================\n");
+        printf("Filme: %s\n", c[i].filme);
+        printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
+        for(int j = 0; j < c[i].num_sessoes; j++){
+            printf("Sessao %d: %s   Cadeiras disponiveis: %d\n", j + 1, c[i].hor_sessoes, c[i].cadeiras);
+        }
+
+    }
 
 
     return 0;

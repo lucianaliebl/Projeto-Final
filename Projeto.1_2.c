@@ -34,8 +34,16 @@ int main(){
             getchar();
         }
     }
-       
 
+    // Imprime a lista de filmes com a quatidade de sessões, horários das sessões e as cadeiras disponíveis para cada sessão
+    for(int i = 0; i < 4; i++){
+        printf("\n=============================================\n");
+        printf("Filme: %s\n", c[i].filme);
+        printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
+        for(int j = 0; j < c[i].num_sessoes; j++){
+            printf("Sessao %d: %s     Cadeiras disponiveis: %d\n", j + 1, c[i].hor_sessoes, c[i].cadeiras);
+        }
+    }   
 
     char *filme_disponiveis;
     int filme_numero;
