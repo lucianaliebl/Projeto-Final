@@ -11,11 +11,29 @@ struct cadastro_filmes{
 
 int main(){
     struct cadastro_filmes c[4]; // permite o cadastro de 4 filmes 
-    
+    int senha[4] = {1,2,3,4};
+     int senha_informada;
+
+    while(1){
+    printf("Gerente insira a senha de acesso:");
+    scanf("%d",&senha_informada);
+
+if(senha_informada == senha[0]){
+    printf("Acesso autorizado como gerente.\n");
+//continuação da parte da luciana
+break;
+
+}
+else{
+    printf("Senha incorreta. Por favor, tente novamente.\n\n");
+      while (getchar() != '\n');
+}
+}
     // Realiza o cadastro dos 4 filmes com quantas sessões disponíveis para cada filme, o horário de cada sessão e o nº de cadeiras em cada sessão
     for(int i = 0; i < 4; i++){
         
         printf("Qual o filme a ser cadastrado?\n");
+         while (getchar() != '\n');
         fgets(c[i].filme, sizeof(c[i]), stdin);
         c[i].filme[strcspn(c[i].filme, "\n")] = '\0'; // remove a quebra de linha para conseguir inserir quantas sessões disponíveis para o filme
 
