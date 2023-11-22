@@ -45,18 +45,18 @@ int main(){
 
         printf("Quantas sessoes disponiveis para o filme %s?\n", c[i].filme);
         scanf("%d", &c[i].num_sessoes);
-        //getchar(); 
+        
 
         //Falta arrumar o horário
         for(j = 0; j < c[i].num_sessoes; j++){
             printf("Qual o horario da sessao %d?\n", j + 1);
-            //getchar();
             fgets(c[i].hor_sessoes, sizeof(c[i].hor_sessoes),stdin);
             c[i].hor_sessoes[strcspn(c[i].hor_sessoes, "\n")] = '\0'; // remove a quebra de linha para conseguir inserir um horário no terminal 
             clearBuffer();
+
             printf("Quantas cadeiras disponiveis para a sessao das %s?\n", c[i].hor_sessoes);
             scanf("%d", &c[i].cadeiras);
-            //getchar();
+            
         }
     }
     system("cls");
