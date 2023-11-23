@@ -32,7 +32,8 @@ int main()
             printf("Acesso autorizado como gerente.\n");
                 break;
         }    
-        else{
+        else
+        {
             printf("Senha incorreta. Por favor, tente novamente.\n\n");
                 while (getchar() != '\n');
         }   
