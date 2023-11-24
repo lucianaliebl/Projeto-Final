@@ -16,8 +16,7 @@ struct cadastro_filmes
     int* cadeiras;  //nº de cadeira para cada sessão
 };
 
-int main()
-{
+int main(){
     int senha[4] = {1,2,3,4};
     int senha_informada;
     int j;
@@ -73,7 +72,7 @@ int main()
         
     // Imprime a lista de filmes com a quatidade de sessões, horários das sessões e as cadeiras disponíveis para cada sessão
     printf("%30s\n", "FILMES DISPONIVEIS");
-printf("=============================================");
+    printf("=============================================");
 
     for(int i = 0; i < 4; i++)
     {
