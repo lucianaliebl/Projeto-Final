@@ -30,9 +30,8 @@ void mostrarMenu(){ // Função para mostrar menu de opções
 }
 
 void retornarMenu(){
-    printf("\n Pressione Enter para retornar ao MENU\n");
+    printf("\nPressione Enter para retornar ao MENU\n");
     clearBuffer();
-    getchar();
 }
 
 int main(){
@@ -95,7 +94,6 @@ int main(){
                 }
             }
             break;
-    system("cls");
 
         case 2: // Mostra filmes disponíveis e respectivas sessões
             printf("%30s\n", "FILMES DISPONIVEIS");
@@ -138,6 +136,8 @@ int main(){
             return 0;
       }
       retornarMenu(); //chama a função para retornar ao menu
+      system("cls");
+    
     }while(1); 
  
     return 0;
