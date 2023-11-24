@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-//projeto original 
+//Projeto Original 
 void clearBuffer()
 {
     int c;
