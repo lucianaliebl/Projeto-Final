@@ -78,12 +78,14 @@ int main()
     for(int i = 0; i < 4; i++)
     {
         printf("\n=============================================\n");
-        printf("Filme %d: %s\n", i + 1, c[i].filme);
+        printf("FILME %d: %s\n", i + 1, c[i].filme);
         printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
 
         for(int j = 0; j < c[i].num_sessoes; j++)
         {
-            printf("Sessao %d: %s - Cadeiras disponiveis: %d\n", j + 1,c[i].hor_sessoes[j], c[i].cadeiras[j]);
+            printf("SESSAO %d:\n", j + 1);
+            printf("Horario: %s\n", c[i].hor_sessoes[j]);
+            printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
         }
 }
         return 0;
