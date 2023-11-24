@@ -11,8 +11,8 @@ void clearBuffer()
 struct cadastro_filmes{
     char filme[51]; //nome do filme
     int num_sessoes; // quantas sesões terá o filme
-    char hor_sessoes[10]; // horário de cada sessão
-    int cadeiras;  //nº de cadeira para cada sessão
+    char **hor_sessoes; // horário de cada sessão
+    int *cadeiras;  //nº de cadeira para cada sessão
 };
 
 int main(){
@@ -45,18 +45,21 @@ int main(){
 
         printf("Quantas sessoes disponiveis para o filme %s?\n", c[i].filme);
         scanf("%d", &c[i].num_sessoes);
-        //getchar(); 
+        
+        c[i].hor_sessoes = (char **)malloc(c[i].num_sessoes * sizeof(char*));
+        c[i].cadeiras = (int *)malloc(c[i].num_sessoes * sizeof(int));
 
         //Falta arrumar o horário
         for(j = 0; j < c[i].num_sessoes; j++){
             printf("Qual o horario da sessao %d?\n", j + 1);
-            //getchar();
-            fgets(c[i].hor_sessoes, sizeof(c[i].hor_sessoes),stdin);
-            c[i].hor_sessoes[strcspn(c[i].hor_sessoes, "\n")] = '\0'; // remove a quebra de linha para conseguir inserir um horário no terminal 
+            c[i].hor_sessoes[j] = (char *)malloc(21 *sizeof(char));
+            fgets(c[i].hor_sessoes[j], 21,stdin);
+            c[i].hor_sessoes[j][strcspn(c[i].hor_sessoes[j], "\n")] = '\0'; // remove a quebra de linha para conseguir inserir um horário no terminal 
             clearBuffer();
+
             printf("Quantas cadeiras disponiveis para a sessao das %s?\n", c[i].hor_sessoes);
-            scanf("%d", &c[i].cadeiras);
-            //getchar();
+            scanf("%d", &c[i].cadeiras[j]);
+           
         }
     }
     system("cls");
@@ -69,10 +72,18 @@ int main(){
         printf("\n=============================================\n");
         printf("Filme %d: %s\n", i + 1, c[i].filme);
         printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
-        printf("Horarios das sessoes: %d\n",j);
         for(int j = 0; j < c[i].num_sessoes; j++){
-            printf("Sessao %d: %s     Cadeiras disponiveis: %d\n", j + 1, c[i].hor_sessoes, c[i].cadeiras);
+            printf("Sessao %d: %s     Cadeiras disponiveis: %d\n", j + 1, c[i].hor_sessoes[j], c[i].cadeiras[j]);
         }
-    }   
+    } 
+
+    for (int i = 0; i < 4; i++){
+        for(int j = 0; j < c[i].num_sessoes; j++){
+            free(c[i].hor_sessoes[j]);
+        }
+        free(c[i].hor_sessoes);
+        free(c[i].cadeiras);
+        
+    }  
         return 0;
 }
