@@ -87,6 +87,7 @@ int main()
             printf("Horario: %s\n", c[i].hor_sessoes[j]);
             printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
         }
-}
-        return 0;
+    }
+    
+    return 0;
 }
