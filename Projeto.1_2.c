@@ -18,24 +18,24 @@ struct cadastro_filmes
 
 int main()
 {
-    int senha[4] = {1,2,3,4};
+    int senha = 1234;
     int senha_informada;
     int j;
 
     while(1)
     {
-        printf("Gerente, insira a senha de acesso:\n"); // A senha é 1 2 3 4 (com espaços entre os números)
-        scanf("%d",&senha_informada);
-
-        if(senha_informada == senha[0])
+        printf("Gerente, insira a senha de acesso:\n"); // A senha é 1234, sem espaços
+        scanf("%d", &senha_informada);
+        
+        if(senha_informada == senha)
         {
             printf("Acesso autorizado como gerente.\n");
-                break;
+            break;
         }    
         else
         {
             printf("Senha incorreta. Por favor, tente novamente.\n\n");
-                while (getchar() != '\n');
+            while (getchar() != '\n');
         }   
     }
 
