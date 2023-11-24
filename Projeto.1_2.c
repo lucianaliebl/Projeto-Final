@@ -10,43 +10,44 @@ void clearBuffer()
 
 struct cadastro_filmes
 {
-    char filme[51]; //nome do filme
-    int num_sessoes; // quantas sesões terá o filme
-    char** hor_sessoes; // horário de cada sessão
-    int* cadeiras;  //nº de cadeira para cada sessão
+    char filme[51]; // Nome do filme
+    int num_sessoes; // Quantidade de sessões de cada filme
+    char** hor_sessoes; // Horário de cada sessão
+    int* cadeiras;  // Nº de cadeiras para cada sessão
 };
 
-int main(){
-    int senha[4] = {1,2,3,4};
+int main()
+{
+    int senha = 1234;
     int senha_informada;
     int j;
 
     while(1)
     {
-        printf("Gerente, insira a senha de acesso:\n"); // a senha é 1 2 3 4 (com espaços entre os números)
-        scanf("%d",&senha_informada);
-
-        if(senha_informada == senha[0])
+        printf("Gerente, insira a senha de acesso:\n"); // A senha é 1234, sem espaços
+        scanf("%d", &senha_informada);
+        
+        if(senha_informada == senha)
         {
             printf("Acesso autorizado como gerente.\n");
-                break;
+            break;
         }    
         else
         {
             printf("Senha incorreta. Por favor, tente novamente.\n\n");
-                while (getchar() != '\n');
+            while (getchar() != '\n');
         }   
     }
 
-    // Realiza o cadastro dos 4 filmes com quantas sessões disponíveis para cada filme, o horário de cada sessão e o nº de cadeiras em cada sessão
-    struct cadastro_filmes c[4]; // permite o cadastro de 4 filmes 
+    // Realiza o cadastro dos 4 filmes, determinando para cada um deles seus horários, quantidades de sessões e nº de cadeiras em cada sessão
+    struct cadastro_filmes c[4]; // Permite o cadastro de 4 filmes 
     
     for(int i = 0; i < 4; i++)
     {
         clearBuffer();
         printf("Qual o nome do filme a ser cadastrado?\n");
         fgets(c[i].filme, sizeof(c[i].filme), stdin);
-        c[i].filme[strcspn(c[i].filme, "\n")] = '\0'; // remove a quebra de linha para conseguir inserir quantas sessões disponíveis para o filme
+        c[i].filme[strcspn(c[i].filme, "\n")] = '\0'; // Remove a quebra de linha para conseguir inserir quantas sessões disponíveis para o filme
 
         printf("Quantas sessoes disponiveis para o filme %s?\n", c[i].filme);
         scanf("%d", &c[i].num_sessoes);
@@ -58,7 +59,7 @@ int main(){
         for(j = 0; j < c[i].num_sessoes; j++)
         {
             printf("Qual o horario da sessao %d?\n", j + 1);
-            //alocação dinamica
+            // Alocação dinâmica
                 c[i].hor_sessoes[j] = (char*)malloc(10 * sizeof(char));
                     scanf("%9s", c[i].hor_sessoes[j]); 
                         clearBuffer();
@@ -77,13 +78,16 @@ int main(){
     for(int i = 0; i < 4; i++)
     {
         printf("\n=============================================\n");
-        printf("Filme %d: %s\n", i + 1, c[i].filme);
+        printf("FILME %d: %s\n", i + 1, c[i].filme);
         printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
 
         for(int j = 0; j < c[i].num_sessoes; j++)
         {
-            printf("Sessao %d: %s - Cadeiras disponiveis: %d\n", j + 1,c[i].hor_sessoes[j], c[i].cadeiras[j]);
+            printf("SESSAO %d:\n", j + 1);
+            printf("Horario: %s\n", c[i].hor_sessoes[j]);
+            printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
         }
-}
-        return 0;
+    }
+    
+    return 0;
 }
