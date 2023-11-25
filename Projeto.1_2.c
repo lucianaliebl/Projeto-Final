@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-//Projeto Final que será enviado para o professor
+//Projeto Final que será enviado para o professor - Dar commits nesse aqui
 void clearBuffer()
 {
     int c;
