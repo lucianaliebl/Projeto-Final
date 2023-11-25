@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-//Projeto Original 
+//Projeto Final que será enviado para o professor
 void clearBuffer()
 {
     int c;
@@ -56,7 +56,6 @@ int main()
         printf("Voce escolheu a opcao %d\n", escolha);
 
       switch (escolha)
-      
       {
         case 1: // Cadastrar filmes
             //Verificação de acesso do gerente
