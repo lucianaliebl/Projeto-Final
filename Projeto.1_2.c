@@ -38,6 +38,38 @@ void retornarMenu()
     clearBuffer();
 }
 
+void editarSessao(struct cadastro_filmes c[]) {
+    int num_filme, num_sessao;
+
+    printf("Digite o número do filme que deseja editar a sessão: ");
+    scanf("%d", &num_filme);
+    clearBuffer();
+
+    if (num_filme < 1 || num_filme > 4) {
+        printf("Filme inválido.\n");
+        return;
+    }
+
+    printf("Digite o número da sessão que deseja editar: ");
+    scanf("%d", &num_sessao);
+    clearBuffer();
+
+    if (num_sessao < 1 || num_sessao > c[num_filme - 1].num_sessoes) {
+        printf("Número de sessão inválido.\n");
+        return;
+    }
+
+    printf("Digite o novo horário da sessão: ");
+    scanf("%s", c[num_filme - 1].hor_sessoes[num_sessao - 1]);
+    clearBuffer();
+
+    printf("Digite a nova quantidade de cadeiras disponíveis: ");
+    scanf("%d", &c[num_filme - 1].cadeiras[num_sessao - 1]);
+    clearBuffer();
+
+    printf("Informações da sessão editadas com sucesso!\n");
+}
+
 int main()
 {
     int senha = 1234;
@@ -143,7 +175,11 @@ int main()
 
             break;
         case 4:
-
+            if (c[0].num_sessoes == 0) {
+                    printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
+                } else {
+                    editarSessao(c);
+                }
             break;
         case 5:
 
