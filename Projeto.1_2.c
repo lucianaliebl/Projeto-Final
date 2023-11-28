@@ -44,6 +44,7 @@ int main()
     int senha_informada;
     int j;
     int escolha;
+    int cadeiras_disponiveis = 0;
 
     struct cadastro_filmes c[4]; // Permite o cadastro de 4 filmes
 
@@ -101,11 +102,23 @@ int main()
                             scanf("%9s", c[i].hor_sessoes[j]); 
                                 clearBuffer();
 
-                    printf("Quantas cadeiras disponiveis para a sessao das %s?\n", c[i].hor_sessoes[j]);
-                    scanf("%d", &c[i].cadeiras[j]);
-                    
+                     while(1){
+                        printf("Atencao, limite de cadeiras disponiveis por sessao: 10\n");
+                        printf("Quantas cadeiras disponiveis para a sessao das %s?\n", c[i].hor_sessoes[j]);
+                        scanf("%d", &c[i].cadeiras[j]);
+
+                            if(c[i].cadeiras[j] <= 10){
+                                cadeiras_disponiveis = 1;
+                                    break;
+                            }
+                            else{
+                                printf("Limite de cadeiras excedidas.\n");
+                                cadeiras_disponiveis = 0;
+                            }
+                     }
                 }
             }
+        
             break;
         case 2:   
             // Imprime a lista de filmes com a quatidade de sessões, horários das sessões e as cadeiras disponíveis para cada sessão
