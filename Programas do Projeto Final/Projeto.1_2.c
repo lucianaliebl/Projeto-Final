@@ -208,7 +208,8 @@ int main()
                 char nome_filme[51];
                 int num_cadeiras;
                 int num_filme;
-                int num_sessao;
+                char horario_pesquisa[10];
+                int num_sessao = -1;
 
                 printf("Digite o nome do filme que deseja reservar/comprar cadeiras: ");
                 fgets(nome_filme, sizeof(nome_filme), stdin);
@@ -223,15 +224,23 @@ int main()
                 }
             if (num_filme == filme)
             {
-                printf("Filme não encontrado.\n");
+                printf("Filme nao encontrado.\n");
                 break; // Não encontrado
             }
-            printf("Digite o numero da sessao que deseja reservar/comprar: ");
-            scanf("%d", &num_sessao);
+            printf("Digite o horario da sessao que deseja reservar/comprar: ");
+            scanf("%9s", horario_pesquisa);
 
-            if (num_sessao < 1 || num_sessao > c[num_filme].num_sessoes)
+            for (int i = 0; i < c[num_filme].num_sessoes; i++)
             {
-                printf("Numero de sessão invalido.\n");
+                if (strcmp(c[num_filme].hor_sessoes[i], horario_pesquisa) == 0)
+                {
+                    num_sessao = i + 1; // Sessão encontrada (i + 1 porque as sessões são numeradas a partir de 1)
+                    break;
+                }
+            }
+            if (num_sessao == -1)
+            {
+                printf("Horario de sessao nao encontrado.\n");
                 break;
             }
             printf("Digite a quantidade de cadeiras que deseja reservar/comprar: ");
