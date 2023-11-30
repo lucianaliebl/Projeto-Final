@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+//Projeto Final que será enviado para o professor - Dar commits nesse aqui
     int senha = 1234;
     int senha_informada;
     int j;
@@ -9,7 +10,6 @@
     int cadeiras_disponiveis = 0;
     int filme = 0;
 
-//Projeto Final que será enviado para o professor - Dar commits nesse aqui
 void clearBuffer()
 {
     int c;
@@ -120,7 +120,7 @@ int main()
             }
             if (filme > 30)
             {
-                printf("quantidade maxima de filmes cadastrados atiginda (30)"); // Caso tenha 30 filmes já cadastrados impossibilita o cadastro de mais um.
+                printf("Quantidade maxima de filmes cadastrados atiginda (30)"); // Caso tenha 30 filmes já cadastrados impossibilita o cadastro de mais um.
                 break;
             }
             int numFilmes = 0; // Variavel para perguntar a quantidade de filmes que o Gerente quer cadastrar
@@ -173,7 +173,7 @@ int main()
             printf("%30s\n", "FILMES DISPONIVEIS");
             printf("=============================================");
 
-            for(int i = 0; i <= filme; i++)
+            for(int i = 0; i < filme; i++)
             {
                 printf("\n=============================================\n");
                 printf("FILME %d: %s\n", i + 1, c[i].filme);
@@ -187,10 +187,9 @@ int main()
                 }
             }
             break;
-        case 3:
-            //Buscar por um filme, mostrando horários das sessões
+        case 3: // Buscar por um filme, mostrando horários das sessões
             break;
-        case 4:
+        case 4: // Editar o horario de uma sessao e a quantidade de cadeiras 
             if (c[0].num_sessoes == 0)
             {
                 printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
@@ -203,7 +202,7 @@ int main()
         case 5:
 
             break;
-        case 6:
+        case 6: // Comprar reservar uma cadeira em uma sessao
             {
                 char nome_filme[51];
                 int num_cadeiras;
