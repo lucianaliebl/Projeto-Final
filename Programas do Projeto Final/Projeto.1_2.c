@@ -87,7 +87,6 @@ int main()
     int senha_informada;
     int j;
     int escolha;
-    int cadeiras_disponiveis = 0;
     int filme = 0;
     struct cadastro_filmes c[30]; // Permite o cadastro de 30 filmes
 
@@ -205,6 +204,51 @@ int main()
 
             break;
         case 6:
+            {
+                char nome_filme[51];
+                int num_cadeiras;
+                int num_filme;
+                int num_sessao;
+
+                printf("Digite o nome do filme que deseja reservar/comprar cadeiras: ");
+                fgets(nome_filme, sizeof(nome_filme), stdin);
+                nome_filme[strcspn(nome_filme, "\n")] = '\0';
+
+                for (num_filme = 0; num_filme < filme; num_filme++)
+                {
+                    if (strcmp(c[num_filme].filme, nome_filme) == 0)
+                    {
+                        break; // Aqui o filme foi encontrado
+                    }
+                }
+            if (num_filme == filme)
+            {
+                printf("Filme não encontrado.\n");
+                break; // Não encontrado
+            }
+            printf("Digite o numero da sessao que deseja reservar/comprar: ");
+            scanf("%d", &num_sessao);
+
+            if (num_sessao < 1 || num_sessao > c[num_filme].num_sessoes)
+            {
+                printf("Numero de sessão invalido.\n");
+                break;
+            }
+            printf("Digite a quantidade de cadeiras que deseja reservar/comprar: ");
+            scanf("%d", &num_cadeiras);
+
+            if (num_cadeiras <= 0 || num_cadeiras > c[num_filme].cadeiras[num_sessao - 1])
+            {
+                printf("Quantidade de cadeiras invalida.\n");
+                break;
+            }
+            // Atualiza a quantidade de cadeiras disponíveis na sessão
+            c[num_filme].cadeiras[num_sessao - 1] -= num_cadeiras;
+
+            printf("%d cadeira(s) reservada(s)/comprada(s) com sucesso para a sessao %s do filme %s.\n",
+            num_cadeiras, c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme);
+            break;
+            }
 
             break;
         case 7:
@@ -212,7 +256,7 @@ int main()
             break;
         case 8:
             printf("Encerrando o Programa\n");
-            break;
+            return 0;
 
         default:
         printf("Numero Invalido\n");
