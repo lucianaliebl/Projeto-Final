@@ -45,36 +45,39 @@ void retornarMenu()
     clearBuffer();
 }
 
-void editarSessao(struct cadastro_filmes c[]) {
+void editarSessao(struct cadastro_filmes c[])
+{
     int num_filme, num_sessao;
 
-    printf("Digite o número do filme que deseja editar a sessão: ");
+    printf("Digite o numero do filme que deseja editar a sessao: ");
     scanf("%d", &num_filme);
     clearBuffer();
 
-    if (num_filme < 1 || num_filme > 4) {
-        printf("Filme inválido.\n");
+    if (num_filme < 1 || num_filme > 4)
+    {
+        printf("Filme invalido.\n");
         return;
     }
 
-    printf("Digite o número da sessão que deseja editar: ");
+    printf("Digite o numero da sessao que deseja editar: ");
     scanf("%d", &num_sessao);
     clearBuffer();
 
-    if (num_sessao < 1 || num_sessao > c[num_filme - 1].num_sessoes) {
-        printf("Número de sessão inválido.\n");
+    if (num_sessao < 1 || num_sessao > c[num_filme - 1].num_sessoes)
+    {
+        printf("Numero de sessao invalido.\n");
         return;
     }
 
-    printf("Digite o novo horário da sessão: ");
+    printf("Digite o novo horario da sessao: ");
     scanf("%s", c[num_filme - 1].hor_sessoes[num_sessao - 1]);
     clearBuffer();
 
-    printf("Digite a nova quantidade de cadeiras disponíveis: ");
+    printf("Digite a nova quantidade de cadeiras disponiveis: ");
     scanf("%d", &c[num_filme - 1].cadeiras[num_sessao - 1]);
     clearBuffer();
 
-    printf("Informações da sessão editadas com sucesso!\n");
+    printf("Informacoes da sessao editadas com sucesso!\n");
 }
 
 
@@ -89,7 +92,7 @@ int main()
     struct cadastro_filmes c[30]; // Permite o cadastro de 30 filmes
 
     //Menu de opções
-    do{
+    do {
         mostrarMenu(); // Chama função para mostrar o Menu de opções
         scanf("%d", &escolha);
         clearBuffer();
@@ -134,32 +137,34 @@ int main()
                 printf("Quantas sessoes disponiveis para o filme %s?\n", c[filme].filme);
                 scanf("%d", &c[filme].num_sessoes);
                 
-
-                    c[filme].hor_sessoes = (char**)malloc(c[filme].num_sessoes * sizeof(char*));
-                    c[filme].cadeiras = (int*)malloc(c[filme].num_sessoes * sizeof(int));
+                c[filme].hor_sessoes = (char**)malloc(c[filme].num_sessoes * sizeof(char*));
+                c[filme].cadeiras = (int*)malloc(c[filme].num_sessoes * sizeof(int));
 
                 for(j = 0; j < c[filme].num_sessoes; j++)
                 {
                     printf("Qual o horario da sessao %d?\n", j + 1);
                     // Alocação dinâmica
-                        c[filme].hor_sessoes[j] = (char*)malloc(10 * sizeof(char));
-                            scanf("%9s", c[filme].hor_sessoes[j]); 
-                                clearBuffer();
+                    c[filme].hor_sessoes[j] = (char*)malloc(10 * sizeof(char));
+                    scanf("%9s", c[filme].hor_sessoes[j]); 
+                    clearBuffer();
 
-                     while(1){
+                     while(1)
+                     {
                         printf("Atencao, limite de cadeiras disponiveis por sessao: 10\n");
                         printf("Quantas cadeiras disponiveis para a sessao das %s?\n", c[filme].hor_sessoes[j]);
                         scanf("%d", &c[filme].cadeiras[j]);
 
-                            if(c[filme].cadeiras[j] <= 10){
-                                cadeiras_disponiveis = 1;
-                                    break;
-                            }
-                            else{
-                                printf("Limite de cadeiras excedidas.\n");
-                                cadeiras_disponiveis = 0;
-                            }
-                     }
+                        if(c[filme].cadeiras[j] <= 10)
+                        {
+                            cadeiras_disponiveis = 1;
+                            break;
+                        }
+                        else
+                        {
+                            printf("Limite de cadeiras excedidas.\n");
+                            cadeiras_disponiveis = 0;
+                        }
+                    }
                 }
                 filme++;
             }
@@ -187,11 +192,14 @@ int main()
             //Buscar por um filme, mostrando horários das sessões
             break;
         case 4:
-            if (c[0].num_sessoes == 0) {
-                    printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
-                } else {
-                    editarSessao(c);
-                }
+            if (c[0].num_sessoes == 0)
+            {
+                printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
+            }
+            else
+            {
+                editarSessao(c);
+            }
             break;
         case 5:
 
@@ -211,7 +219,7 @@ int main()
       }
       retornarMenu(); //chama a função para retornar ao menu
     
-    }while(1);
+    } while(1);
     
     return 0;
 }
