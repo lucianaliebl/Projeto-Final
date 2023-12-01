@@ -152,13 +152,11 @@ int main()
 
                         if(c[filme].cadeiras[j] <= 10)
                         {
-                            cadeiras_disponiveis = 1;
                             break;
                         }
                         else
                         {
                             printf("Limite de cadeiras excedidas.\n");
-                            cadeiras_disponiveis = 0;
                         }
                     }
                 }
@@ -295,6 +293,11 @@ int main()
                 printf("Horario de sessao nao encontrado.\n");
                 break;
             }
+
+            
+            printf("Quantidade de cadeiras disponiveis para a sessao das %s do filme %s: %d\n", c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme, c[num_filme].cadeiras[num_sessao - 1]);
+
+
             printf("Digite a quantidade de cadeiras que deseja reservar/comprar: ");
             scanf("%d", &num_cadeiras);
 
