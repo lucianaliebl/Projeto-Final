@@ -3,12 +3,7 @@
 #include <stdlib.h>
 
 //Projeto Final que será enviado para o professor - Dar commits nesse aqui
-    int senha = 1234;
-    int senha_informada;
-    int j;
-    int escolha;
-    int cadeiras_disponiveis = 0;
-    int filme = 0;
+
 
 void clearBuffer()
 {
@@ -88,6 +83,8 @@ int main()
     int j;
     int escolha;
     int filme = 0;
+    int escolhaCaso3 = 0;
+    int cadeiras_disponiveis = 0;
     struct cadastro_filmes c[30]; // Permite o cadastro de 30 filmes
 
     //Menu de opções
@@ -188,19 +185,21 @@ int main()
             }
             break;
         case 3: // Buscar por um filme, mostrando horários das sessões
-            int escolha = 0;
-            printf("1. Buscar por Nome?");
-            printf("2. Buscar por horario da sessao?");
-            scanf("%s", escolha);
-            switch (escolha)
+            
+            printf("1. Buscar por Nome?\n");
+            printf("2. Buscar por horario da sessao?\n");
+            scanf("%d", &escolhaCaso3);
+            switch (escolhaCaso3)
             {
+                char pesquisaNome[30];
+                char pesquisaHora[10];
             case 1:
-                char nome[30];
-                printf("Qual o nome do filme");
-                scanf("%s", nome);
-            for (size_t i = 0; i < filme; i++)
+                printf("Qual o nome do filme?\n");
+                scanf("%s", pesquisaNome);
+                printf("Filmes com nomes correspondentes\n");
+            for (int i = 0; i < filme; i++)
             {
-                if (strcmp(nome, c[i].filme) == 0){
+                if (strcmp(pesquisaNome, c[i].filme) == 0){
                     printf("\n=============================================\n");
                     printf("FILME %d: %s\n", i + 1, c[i].filme);
                     printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
@@ -215,28 +214,29 @@ int main()
             }
                 break;
             case 2:
-                char horaSessao[10];
-                    printf("Qual o horario da sessao");
-                    scanf("%s", horaSessao);
-                for (size_t i = 0; i < filme; i++)
+                printf("Qual o horario da sessao\n");
+                scanf("%s", pesquisaHora);
+                printf("Filmes com sessoes correspondentes\n");
+                for (int i = 0; i < filme; i++)
                 {
-                    for (size_t j = 0; j < c[i].num_sessoes; i++)
+                    for (int j = 0; j < c[i].num_sessoes; j++)
                     {
-                        if (horaSessao == c[i].hor_sessoes[j])
-                    {
-                        printf("\n=============================================\n");
-                        printf("FILME %d: %s\n", i + 1, c[i].filme);
-                        printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
+                            if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0)
+                            {
+                                printf("\n=============================================\n");
+                                printf("FILME %d: %s\n", i + 1, c[i].filme);
+                                printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
 
-                    for(int j = 0; j < c[i].num_sessoes; j++)
-                    {
-                        printf("SESSAO %d:\n", j + 1);
-                        printf("Horario: %s\n", c[i].hor_sessoes[j]);
-                        printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
-                    }
-                    }
+                                for(int j = 0; j < c[i].num_sessoes; j++)
+                                {
+                                    printf("SESSAO %d:\n", j + 1);
+                                    printf("Horario: %s\n", c[i].hor_sessoes[j]);
+                                    printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
+                            }
+                        }
                     }
                 }
+                break;
             default:
                 printf("Numero invalido");
                 break;
