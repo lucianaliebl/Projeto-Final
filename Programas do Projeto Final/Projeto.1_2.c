@@ -75,6 +75,38 @@ void editarSessao(struct cadastro_filmes c[])
     printf("Informacoes da sessao editadas com sucesso!\n");
 }
 
+void removerSessao(struct cadastro_filmes c[])
+{
+    int num_filme, num_sessao;
+                
+    printf("Digite o numero do filme que deseja remover a sessao: ");
+    scanf("%d", &num_filme);
+    clearBuffer();
+
+    if (num_filme < 1 || num_filme > 30)
+    {
+        printf ("Filme invalido.\n");
+        return;
+    }
+
+    printf("Digite o numero da sessao que deseja remover: ");
+    scanf("%d", &num_sessao);
+    clearBuffer();
+
+    if (num_sessao < 1 || num_sessao > c[num_filme - 1].num_sessoes)
+    {
+        printf("Numero de sessao invalido.\n");
+        return;
+    }
+
+    free(c[num_filme - 1].hor_sessoes[num_sessao - 1]);
+
+    for (int i = num_sessao -1; 1 < c[num_filme - 1].num_sessoes - 1; i++)
+    {
+        (c[num_filme - 1].hor_sessoes[i], c [num_filme - 1].hor_sessoes[i + i]);
+        c[num_filme - 1].cadeiras[i] = c[num_filme - 1].cadeiras[i + 1];
+    }
+}
 
 int main()
 {
@@ -251,7 +283,7 @@ int main()
             }
             break;
         case 5:
-
+            removerSessao(c);
             break;
         case 6: // Comprar reservar uma cadeira em uma sessao
             {
