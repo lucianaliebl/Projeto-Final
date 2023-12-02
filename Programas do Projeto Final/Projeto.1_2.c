@@ -78,14 +78,13 @@ void editarSessao(struct cadastro_filmes c[])
 void removerSessao(struct cadastro_filmes c[])
 {
     int num_filme, num_sessao;
-                
     printf("Digite o numero do filme que deseja remover a sessao: ");
     scanf("%d", &num_filme);
     clearBuffer();
 
     if (num_filme < 1 || num_filme > 30)
     {
-        printf ("Filme invalido.\n");
+        printf("Filme invalido.\n");
         return;
     }
 
@@ -99,13 +98,24 @@ void removerSessao(struct cadastro_filmes c[])
         return;
     }
 
+    // Libera a memória da sessão a ser removida
     free(c[num_filme - 1].hor_sessoes[num_sessao - 1]);
 
-    for (int i = num_sessao -1; 1 < c[num_filme - 1].num_sessoes - 1; i++)
+    // Desloca todas as sessões após a removida uma posição para trás
+    for (int i = num_sessao - 1; i < c[num_filme - 1].num_sessoes - 1; i++)
     {
-        (c[num_filme - 1].hor_sessoes[i], c [num_filme - 1].hor_sessoes[i + i]);
+        c[num_filme - 1].hor_sessoes[i] = c[num_filme - 1].hor_sessoes[i + 1];
         c[num_filme - 1].cadeiras[i] = c[num_filme - 1].cadeiras[i + 1];
     }
+
+    // Atualiza o número de sessões
+    c[num_filme - 1].num_sessoes--;
+
+    // Realoca a memória para as listas de horários e cadeiras
+    c[num_filme - 1].hor_sessoes = (char**)realloc(c[num_filme - 1].hor_sessoes, c[num_filme - 1].num_sessoes * sizeof(char*));
+    c[num_filme - 1].cadeiras = (int*)realloc(c[num_filme - 1].cadeiras, c[num_filme - 1].num_sessoes * sizeof(int));
+
+    printf("Sessao removida com sucesso!\n");
 }
 
 int main()
@@ -127,8 +137,8 @@ int main()
 
         printf("Voce escolheu a opcao %d\n", escolha);
 
-      switch (escolha)
-      {
+        switch (escolha)
+        {
         case 1: // Cadastrar filmes
             //Verificação de acesso do gerente
             while(1)
@@ -176,8 +186,8 @@ int main()
                     scanf("%9s", c[filme].hor_sessoes[j]); 
                     clearBuffer();
 
-                     while(1)
-                     {
+                    while(1)
+                    {
                         printf("Atencao, limite de cadeiras disponiveis por sessao: 10\n");
                         printf("Quantas cadeiras disponiveis para a sessao das %s?\n", c[filme].hor_sessoes[j]);
                         scanf("%d", &c[filme].cadeiras[j]);
@@ -227,21 +237,22 @@ int main()
                 printf("Qual o nome do filme?\n");
                 scanf("%s", pesquisaNome);
                 printf("Filmes com nomes correspondentes\n");
-            for (int i = 0; i < filme; i++)
-            {
-                if (strcmp(pesquisaNome, c[i].filme) == 0){
-                    printf("\n=============================================\n");
-                    printf("FILME %d: %s\n", i + 1, c[i].filme);
-                    printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
-
-                for(int j = 0; j < c[i].num_sessoes; j++)
+                for (int i = 0; i < filme; i++)
                 {
-                    printf("SESSAO %d:\n", j + 1);
-                    printf("Horario: %s\n", c[i].hor_sessoes[j]);
-                    printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
+                    if (strcmp(pesquisaNome, c[i].filme) == 0)
+                    {
+                        printf("\n=============================================\n");
+                        printf("FILME %d: %s\n", i + 1, c[i].filme);
+                        printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
+
+                        for(int j = 0; j < c[i].num_sessoes; j++)
+                        {
+                            printf("SESSAO %d:\n", j + 1);
+                            printf("Horario: %s\n", c[i].hor_sessoes[j]);
+                            printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
+                        }
+                    }
                 }
-            }
-            }
                 break;
             case 2:
                 printf("Qual o horario da sessao\n");
@@ -251,17 +262,17 @@ int main()
                 {
                     for (int j = 0; j < c[i].num_sessoes; j++)
                     {
-                            if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0)
-                            {
-                                printf("\n=============================================\n");
-                                printf("FILME %d: %s\n", i + 1, c[i].filme);
-                                printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
+                        if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0)
+                        {
+                            printf("\n=============================================\n");
+                            printf("FILME %d: %s\n", i + 1, c[i].filme);
+                            printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
 
-                                for(int j = 0; j < c[i].num_sessoes; j++)
-                                {
-                                    printf("SESSAO %d:\n", j + 1);
-                                    printf("Horario: %s\n", c[i].hor_sessoes[j]);
-                                    printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
+                            for(int j = 0; j < c[i].num_sessoes; j++)
+                            {
+                                printf("SESSAO %d:\n", j + 1);
+                                printf("Horario: %s\n", c[i].hor_sessoes[j]);
+                                printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
                             }
                         }
                     }
@@ -283,7 +294,14 @@ int main()
             }
             break;
         case 5:
-            removerSessao(c);
+            if (c[0].num_sessoes == 0)
+            {
+                printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
+            }
+            else
+            {
+                removerSessao(c);
+            }
             break;
         case 6: // Comprar reservar uma cadeira em uma sessao
             {
