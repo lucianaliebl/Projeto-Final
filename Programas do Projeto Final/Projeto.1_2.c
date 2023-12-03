@@ -75,43 +75,41 @@ void editarSessao(struct cadastro_filmes c[])
     printf("Informacoes da sessao editadas com sucesso!\n");
 }
 
-void removerSessao(struct cadastro_filmes c[])
+void removerSessao(struct cadastro_filmes c[], int total_filmes)
 {
     int num_filme, num_sessao;
-    printf("Digite o numero do filme que deseja remover a sessao: ");
-    scanf("%d", &num_filme);
-    clearBuffer();
+    do {
+        printf("Digite o numero do filme que deseja remover a sessao: ");
+        scanf("%d", &num_filme);
+        clearBuffer();
 
-    if (num_filme < 1 || num_filme > 30)
-    {
-        printf("Filme invalido.\n");
-        return;
-    }
+        if (num_filme < 1 || num_filme > total_filmes)
+        {
+            printf("Filme invalido. Por favor, tente novamente.\n");
+        }
+    } while (num_filme < 1 || num_filme > total_filmes);
 
-    printf("Digite o numero da sessao que deseja remover: ");
-    scanf("%d", &num_sessao);
-    clearBuffer();
+    do {
+        printf("Digite o numero da sessao que deseja remover: ");
+        scanf("%d", &num_sessao);
+        clearBuffer();
 
-    if (num_sessao < 1 || num_sessao > c[num_filme - 1].num_sessoes)
-    {
-        printf("Numero de sessao invalido.\n");
-        return;
-    }
+        if (num_sessao < 1 || num_sessao > c[num_filme - 1].num_sessoes)
+        {
+            printf("Numero de sessao invalido. Por favor, tente novamente.\n");
+        }
+    } while (num_sessao < 1 || num_sessao > c[num_filme - 1].num_sessoes);
 
-    // Libera a memória da sessão a ser removida
     free(c[num_filme - 1].hor_sessoes[num_sessao - 1]);
 
-    // Desloca todas as sessões após a removida uma posição para trás
     for (int i = num_sessao - 1; i < c[num_filme - 1].num_sessoes - 1; i++)
     {
         c[num_filme - 1].hor_sessoes[i] = c[num_filme - 1].hor_sessoes[i + 1];
         c[num_filme - 1].cadeiras[i] = c[num_filme - 1].cadeiras[i + 1];
     }
 
-    // Atualiza o número de sessões
     c[num_filme - 1].num_sessoes--;
 
-    // Realoca a memória para as listas de horários e cadeiras
     c[num_filme - 1].hor_sessoes = (char**)realloc(c[num_filme - 1].hor_sessoes, c[num_filme - 1].num_sessoes * sizeof(char*));
     c[num_filme - 1].cadeiras = (int*)realloc(c[num_filme - 1].cadeiras, c[num_filme - 1].num_sessoes * sizeof(int));
 
@@ -126,7 +124,6 @@ int main()
     int escolha;
     int filme = 0;
     int escolhaCaso3 = 0;
-    int cadeiras_disponiveis = 0;
     struct cadastro_filmes c[30]; // Permite o cadastro de 30 filmes
 
     //Menu de opções
@@ -294,13 +291,13 @@ int main()
             }
             break;
         case 5:
-            if (c[0].num_sessoes == 0)
+            if (filme == 0)
             {
                 printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
             }
             else
             {
-                removerSessao(c);
+                removerSessao(c, filme);
             }
             break;
         case 6: // Comprar reservar uma cadeira em uma sessao
