@@ -50,10 +50,11 @@ void mostrarMenuGerente() // Função para mostrar menu de opções
 {
     printf("===================== MENU DO GERENTE ====================\n");
     printf("1. Cadastrar um filme e inserir nova sessao de um filme\n");
-    printf("2. Editar informacoes da sessao\n");
-    printf("3. Remover sessao\n");
-    printf("4. Sair do programa\n");
+    printf("2. Inserir uma nova sessao para um filme ja cadastrado\n");
+    printf("3. Editar informacoes da sessao\n");
+    printf("4. Remover sessao\n");
     printf("5. Retornar ao Menu de Entrada\n");
+    printf("6. Sair do programa\n");
     printf("==========================================================\n");
     printf("Escolha uma opcao:\n");
 }
@@ -399,7 +400,11 @@ int main()
                         }
                         break;
 
-                    case 2: // Editar o horario de uma sessao e a quantidade de cadeiras 
+                    case 2: // Inserir uma nova sessao para um filme ja cadastrado
+                        // Adicionar o código desa tarefa aqui
+                        break;
+
+                    case 3: // Editar o horário e a quantidade de cadeiras de uma sessão
                         if (c[0].num_sessoes == 0)
                         {
                             printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
@@ -410,7 +415,7 @@ int main()
                         }
                         break;
 
-                    case 3:
+                    case 4: // Remover Sessão
                         if (filme == 0)
                         {
                             printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
@@ -421,12 +426,14 @@ int main()
                         }
                         break;
 
-                    case 4:
-                        printf("Encerrando o Programa\n");
-                        return 0;
-                    case 5:
+                    case 5: // Voltar ao menu de entrada
                         retornarMenuDeEntrada();
                         break;
+
+                    case 6: // Sair do programa
+                        printf("Encerrando o Programa\n");
+                        return 0;
+
                     default:
                         printf("Numero Invalido\n");
                     }
