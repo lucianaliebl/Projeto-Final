@@ -31,6 +31,7 @@ void mostrarMenu() // Função para mostrar menu de opções
     printf("6. Reservar ou comprar lugar em um sessao especifica\n");
     printf("7. Salvar informacoes das sessoes em um arquivo\n");
     printf("8. Sair do programa\n");
+    printf("==========================================================\n");
     printf("ESCOLHA UMA OPCAO:\n");
 }
 
@@ -204,21 +205,21 @@ int main()
             break;
         case 2:   
             // Imprime a lista de filmes com a quatidade de sessões, horários das sessões e as cadeiras disponíveis para cada sessão
-            printf("%30s\n", "FILMES DISPONIVEIS");
-            printf("=============================================");
+            printf("%30s\n", "====================FILMES DISPONIVEIS====================");
 
             for(int i = 0; i < filme; i++)
             {
-                printf("\n=============================================\n");
                 printf("FILME %d: %s\n", i + 1, c[i].filme);
                 printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
 
                 for(int j = 0; j < c[i].num_sessoes; j++)
                 {
+                    printf("----------------------------------------------------------\n");
                     printf("SESSAO %d:\n", j + 1);
                     printf("Horario: %s\n", c[i].hor_sessoes[j]);
                     printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
                 }
+                printf("==========================================================\n");
             }
             break;
         case 3: // Buscar por um filme, mostrando horários das sessões
@@ -233,40 +234,42 @@ int main()
             case 1:
                 printf("Qual o nome do filme?\n");
                 scanf("%s", pesquisaNome);
-                printf("Filmes com nomes correspondentes\n");
+                printf("*******************FILME CORRESPONDENTE*******************\n");
                 for (int i = 0; i < filme; i++)
                 {
                     if (strcmp(pesquisaNome, c[i].filme) == 0)
                     {
-                        printf("\n=============================================\n");
                         printf("FILME %d: %s\n", i + 1, c[i].filme);
                         printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
 
                         for(int j = 0; j < c[i].num_sessoes; j++)
                         {
+                            printf("----------------------------------------------------------\n");
                             printf("SESSAO %d:\n", j + 1);
                             printf("Horario: %s\n", c[i].hor_sessoes[j]);
                             printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
                         }
+                        printf("**********************************************************\n");
                     }
                 }
                 break;
             case 2:
                 printf("Qual o horario da sessao\n");
                 scanf("%s", pesquisaHora);
-                printf("Filmes com sessoes correspondentes\n");
+                printf("*******************FILME CORRESPONDENTE*******************\n");
                 for (int i = 0; i < filme; i++)
                 {
                     for (int j = 0; j < c[i].num_sessoes; j++)
                     {
                         if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0)
                         {
-                            printf("\n=============================================\n");
                             printf("FILME %d: %s\n", i + 1, c[i].filme);
                             printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
+                            
 
                             for(int j = 0; j < c[i].num_sessoes; j++)
                             {
+                                printf("----------------------------------------------------------\n");
                                 printf("SESSAO %d:\n", j + 1);
                                 printf("Horario: %s\n", c[i].hor_sessoes[j]);
                                 printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
@@ -274,6 +277,7 @@ int main()
                         }
                     }
                 }
+                printf("**********************************************************\n");
                 break;
             default:
                 printf("Numero invalido");
