@@ -49,7 +49,7 @@ void mostrarMenuCliente()
 void mostrarMenuGerente() // Função para mostrar menu de opções
 {
     printf("===================== MENU DO GERENTE ====================\n");
-    printf("1. Cadastrar um filme e inserir nova sessao de um filme\n");
+    printf("1. Cadastrar um filme e suas sessoes\n");
     printf("2. Inserir uma nova sessao para um filme ja cadastrado\n");
     printf("3. Editar informacoes da sessao\n");
     printf("4. Remover sessao\n");
