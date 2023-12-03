@@ -323,48 +323,47 @@ int main()
                         break; // Aqui o filme foi encontrado
                     }
                 }
-            if (num_filme == filme)
-            {
-                printf("Filme nao encontrado.\n");
-                break; // Não encontrado
-            }
-            printf("Digite o horario da sessao que deseja reservar/comprar: ");
-            scanf("%9s", horario_pesquisa);
-
-            for (int i = 0; i < c[num_filme].num_sessoes; i++)
-            {
-                if (strcmp(c[num_filme].hor_sessoes[i], horario_pesquisa) == 0)
+                if (num_filme == filme)
                 {
-                    num_sessao = i + 1; // Sessão encontrada (i + 1 porque as sessões são numeradas a partir de 1)
+                    printf("Filme nao encontrado.\n");
+                    break; // Não encontrado
+                }
+                printf("Digite o horario da sessao que deseja reservar/comprar: ");
+                scanf("%9s", horario_pesquisa);
+
+                for (int i = 0; i < c[num_filme].num_sessoes; i++)
+                {
+                    if (strcmp(c[num_filme].hor_sessoes[i], horario_pesquisa) == 0)
+                    {
+                        num_sessao = i + 1; // Sessão encontrada (i + 1 porque as sessões são numeradas a partir de 1)
+                        break;
+                    }
+                }
+                if (num_sessao == -1)
+                {
+                    printf("Horario de sessao nao encontrado.\n");
                     break;
                 }
-            }
-            if (num_sessao == -1)
-            {
-                printf("Horario de sessao nao encontrado.\n");
+
+                
+                printf("Quantidade de cadeiras disponiveis para a sessao das %s do filme %s: %d\n", c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme, c[num_filme].cadeiras[num_sessao - 1]);
+
+
+                printf("Digite a quantidade de cadeiras que deseja reservar/comprar: ");
+                scanf("%d", &num_cadeiras);
+
+                if (num_cadeiras <= 0 || num_cadeiras > c[num_filme].cadeiras[num_sessao - 1])
+                {
+                    printf("Quantidade de cadeiras invalida.\n");
+                    break;
+                }
+                // Atualiza a quantidade de cadeiras disponíveis na sessão
+                c[num_filme].cadeiras[num_sessao - 1] -= num_cadeiras;
+
+                printf("%d cadeira(s) reservada(s)/comprada(s) com sucesso para a sessao %s do filme %s.\n",
+                num_cadeiras, c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme);
                 break;
             }
-
-            
-            printf("Quantidade de cadeiras disponiveis para a sessao das %s do filme %s: %d\n", c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme, c[num_filme].cadeiras[num_sessao - 1]);
-
-
-            printf("Digite a quantidade de cadeiras que deseja reservar/comprar: ");
-            scanf("%d", &num_cadeiras);
-
-            if (num_cadeiras <= 0 || num_cadeiras > c[num_filme].cadeiras[num_sessao - 1])
-            {
-                printf("Quantidade de cadeiras invalida.\n");
-                break;
-            }
-            // Atualiza a quantidade de cadeiras disponíveis na sessão
-            c[num_filme].cadeiras[num_sessao - 1] -= num_cadeiras;
-
-            printf("%d cadeira(s) reservada(s)/comprada(s) com sucesso para a sessao %s do filme %s.\n",
-            num_cadeiras, c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme);
-            break;
-            }
-
             break;
         case 7:
             //Salvar informações das sessões, incluindo quantidade de cadeiras livres e ocupadas, em um arquivo
@@ -374,9 +373,9 @@ int main()
             return 0;
 
         default:
-        printf("Numero Invalido\n");
-      }
-      retornarMenu(); //chama a função para retornar ao menu
+            printf("Numero Invalido\n");
+        }
+        retornarMenu(); //chama a função para retornar ao menu
     
     } while(1);
     
