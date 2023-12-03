@@ -19,26 +19,43 @@ struct cadastro_filmes
     int* cadeiras;  // Nº de cadeiras para cada sessão
 };
 
-void mostrarMenu() // Função para mostrar menu de opções
+void mostrarMenuDeEntrada()
 {
-    printf("========================== MENU ==========================\n");
-    printf("OPCOES:\n");
-    printf("1. Cadastrar um filme e inserir nova sessao de um filme\n");
-    printf("2. Mostrar filmes disponiveis e respectivas sessoes\n");
-    printf("3. Buscar por um filme, mostrando horarios das sessoes\n");
-    printf("4. Editar informacoes da sessao\n");
-    printf("5. Remover sessao\n");
-    printf("6. Reservar ou comprar lugar em um sessao especifica\n");
-    printf("7. Salvar informacoes das sessoes em um arquivo\n");
-    printf("8. Sair do programa\n");
+    printf("===================== MENU DE ENTRADA ====================\n");
+    printf("1. Acesso como Cliente\n");
+    printf("2. Acesso como Gerente\n");
     printf("==========================================================\n");
-    printf("ESCOLHA UMA OPCAO:\n");
+    printf("Escolha o tipo de acesso:\n");
 }
 
-void retornarMenu()
+void retornarMenuDeEntrada()
 {
-    printf("\nPressione Enter para retornar ao MENU\n");
+    printf("\nPressione Enter para retornar ao Menu de Entrada\n");
     clearBuffer();
+}
+
+void mostrarMenuCliente()
+{
+    printf("===================== MENU DO CLIENTE ====================\n");
+    printf("1. Mostrar filmes disponiveis e respectivas sessoes\n");
+    printf("2. Buscar por um filme, mostrando horarios das sessoes\n");
+    printf("3. Reservar ou comprar lugar em um sessao especifica\n");
+    printf("4. Salvar informacoes das sessoes em um arquivo\n");
+    printf("5. Retornar ao Menu de Entrada\n");
+    printf("==========================================================\n");
+    printf("Escolha uma opcao:\n");
+}
+
+void mostrarMenuGerente() // Função para mostrar menu de opções
+{
+    printf("===================== MENU DO GERENTE ====================\n");
+    printf("1. Cadastrar um filme e inserir nova sessao de um filme\n");
+    printf("2. Editar informacoes da sessao\n");
+    printf("3. Remover sessao\n");
+    printf("4. Sair do programa\n");
+    printf("5. Retornar ao Menu de Entrada\n");
+    printf("==========================================================\n");
+    printf("Escolha uma opcao:\n");
 }
 
 void editarSessao(struct cadastro_filmes c[])
@@ -122,150 +139,36 @@ int main()
     int senha = 1234;
     int senha_informada;
     int j;
-    int escolha;
+    int escolhaEntrada;
+    int escolhaCliente;
+    int escolhaGerente;
     int filme = 0;
-    int escolhaCaso3 = 0;
+    int escolhaCaso2 = 0;
     struct cadastro_filmes c[30]; // Permite o cadastro de 30 filmes
 
-    //Menu de opções
     do {
-        mostrarMenu(); // Chama função para mostrar o Menu de opções
-        scanf("%d", &escolha);
+        mostrarMenuDeEntrada();
+        scanf("%d", &escolhaEntrada);
         clearBuffer();
-
-        printf("Voce escolheu a opcao %d\n", escolha);
-
-        switch (escolha)
+        printf("Voce escolheu a opcao %d\n", escolhaEntrada);
+        switch (escolhaEntrada)
         {
-        case 1: // Cadastrar filmes
-            //Verificação de acesso do gerente
-            while(1)
-            {
-                printf("Gerente, insira a senha de acesso:\n"); // A senha é 1234, sem espaços
-                scanf("%d", &senha_informada);
-                
-                if(senha_informada == senha)
-                {
-                    printf("Acesso autorizado como gerente.\n");
-                    break;
-                }    
-                else
-                {
-                    printf("Senha incorreta. Por favor, tente novamente.\n\n");
-                    while (getchar() != '\n');
-                }
-            }
-            if (filme > 30)
-            {
-                printf("Quantidade maxima de filmes cadastrados atiginda (30)"); // Caso tenha 30 filmes já cadastrados impossibilita o cadastro de mais um.
-                break;
-            }
-            int numFilmes = 0; // Variavel para perguntar a quantidade de filmes que o Gerente quer cadastrar
-            printf("Quantos filmes queres cadastrar?\n");
-            scanf("%d", &numFilmes);
-            for(int i = 0; i < numFilmes; i++) 
-            {
-                clearBuffer();
-                printf("Qual o nome do filme a ser cadastrado?\n");
-                fgets(c[filme].filme, sizeof(c[filme].filme), stdin);
-                c[filme].filme[strcspn(c[filme].filme, "\n")] = '\0'; // Remove a quebra de linha para conseguir inserir quantas sessões disponíveis para o filme
-
-                printf("Quantas sessoes disponiveis para o filme %s?\n", c[filme].filme);
-                scanf("%d", &c[filme].num_sessoes);
-                
-                c[filme].hor_sessoes = (char**)malloc(c[filme].num_sessoes * sizeof(char*));
-                c[filme].cadeiras = (int*)malloc(c[filme].num_sessoes * sizeof(int));
-
-                for(j = 0; j < c[filme].num_sessoes; j++)
-                {
-                    printf("Qual o horario da sessao %d?\n", j + 1);
-                    // Alocação dinâmica
-                    c[filme].hor_sessoes[j] = (char*)malloc(10 * sizeof(char));
-                    scanf("%9s", c[filme].hor_sessoes[j]); 
-                    clearBuffer();
-
-                    while(1)
-                    {
-                        printf("Atencao, limite de cadeiras disponiveis por sessao: 10\n");
-                        printf("Quantas cadeiras disponiveis para a sessao das %s?\n", c[filme].hor_sessoes[j]);
-                        scanf("%d", &c[filme].cadeiras[j]);
-
-                        if(c[filme].cadeiras[j] <= 10)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            printf("Limite de cadeiras excedidas.\n");
-                        }
-                    }
-                }
-                filme++;
-            }
-            break;
-        case 2:   
-            // Imprime a lista de filmes com a quatidade de sessões, horários das sessões e as cadeiras disponíveis para cada sessão
-            printf("%30s\n", "====================FILMES DISPONIVEIS====================");
-
-            for(int i = 0; i < filme; i++)
-            {
-                printf("FILME %d: %s\n", i + 1, c[i].filme);
-                printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
-
-                for(int j = 0; j < c[i].num_sessoes; j++)
-                {
-                    printf("----------------------------------------------------------\n");
-                    printf("SESSAO %d:\n", j + 1);
-                    printf("Horario: %s\n", c[i].hor_sessoes[j]);
-                    printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
-                }
-                printf("==========================================================\n");
-            }
-            break;
-        case 3: // Buscar por um filme, mostrando horários das sessões
-            
-            printf("1. Buscar por Nome?\n");
-            printf("2. Buscar por horario da sessao?\n");
-            scanf("%d", &escolhaCaso3);
-            switch (escolhaCaso3)
-            {
-                char pesquisaNome[30];
-                char pesquisaHora[10];
             case 1:
-                printf("Qual o nome do filme?\n");
-                scanf("%s", pesquisaNome);
-                printf("*******************FILME CORRESPONDENTE*******************\n");
-                for (int i = 0; i < filme; i++)
-                {
-                    if (strcmp(pesquisaNome, c[i].filme) == 0)
+                //MENU DE OPÇÕES DO CLIENTE
+                do {
+                    mostrarMenuCliente(); // Chama função para mostrar o Menu de opções
+                    scanf("%d", &escolhaCliente);
+                    clearBuffer();
+                    printf("Voce escolheu a opcao %d\n", escolhaCliente);
+                    switch (escolhaCliente)
                     {
-                        printf("FILME %d: %s\n", i + 1, c[i].filme);
-                        printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
+                    case 1: // Imprime a lista de filmes com a quatidade de sessões, horários das sessões e as cadeiras disponíveis para cada sessão
+                        printf("%30s\n", "====================FILMES DISPONIVEIS====================");
 
-                        for(int j = 0; j < c[i].num_sessoes; j++)
-                        {
-                            printf("----------------------------------------------------------\n");
-                            printf("SESSAO %d:\n", j + 1);
-                            printf("Horario: %s\n", c[i].hor_sessoes[j]);
-                            printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
-                        }
-                        printf("**********************************************************\n");
-                    }
-                }
-                break;
-            case 2:
-                printf("Qual o horario da sessao\n");
-                scanf("%s", pesquisaHora);
-                printf("*******************FILME CORRESPONDENTE*******************\n");
-                for (int i = 0; i < filme; i++)
-                {
-                    for (int j = 0; j < c[i].num_sessoes; j++)
-                    {
-                        if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0)
+                        for(int i = 0; i < filme; i++)
                         {
                             printf("FILME %d: %s\n", i + 1, c[i].filme);
                             printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
-                            
 
                             for(int j = 0; j < c[i].num_sessoes; j++)
                             {
@@ -274,110 +177,268 @@ int main()
                                 printf("Horario: %s\n", c[i].hor_sessoes[j]);
                                 printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
                             }
+
+                            printf("==========================================================\n");
+                        }
+                        break;
+
+                    case 2: // Buscar por um filme, mostrando horários das sessões
+                        
+                        printf("1. Buscar por Nome?\n");
+                        printf("2. Buscar por horario da sessao?\n");
+                        scanf("%d", &escolhaCaso2);
+                        switch (escolhaCaso2)
+                        {
+                            char pesquisaNome[30];
+                            char pesquisaHora[10];
+                        case 1: // Busca pelo nome do filme
+                            printf("Qual o nome do filme?\n");
+                            scanf("%s", pesquisaNome);
+                            printf("*******************FILME CORRESPONDENTE*******************\n");
+                            for (int i = 0; i < filme; i++)
+                            {
+                                if (strcmp(pesquisaNome, c[i].filme) == 0)
+                                {
+                                    printf("FILME %d: %s\n", i + 1, c[i].filme);
+                                    printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
+
+                                    for(int j = 0; j < c[i].num_sessoes; j++)
+                                    {
+                                        printf("----------------------------------------------------------\n");
+                                        printf("SESSAO %d:\n", j + 1);
+                                        printf("Horario: %s\n", c[i].hor_sessoes[j]);
+                                        printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
+                                    }
+                                    printf("**********************************************************\n");
+                                }
+                            }
+                            break;
+                        case 2: // Busca pelo horário da sessão
+                            printf("Qual o horario da sessao\n");
+                            scanf("%s", pesquisaHora);
+                            printf("*******************FILME CORRESPONDENTE*******************\n");
+                            for (int i = 0; i < filme; i++)
+                            {
+                                for (int j = 0; j < c[i].num_sessoes; j++)
+                                {
+                                    if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0)
+                                    {
+                                        printf("FILME %d: %s\n", i + 1, c[i].filme);
+                                        printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
+                                        
+
+                                        for(int j = 0; j < c[i].num_sessoes; j++)
+                                        {
+                                            printf("----------------------------------------------------------\n");
+                                            printf("SESSAO %d:\n", j + 1);
+                                            printf("Horario: %s\n", c[i].hor_sessoes[j]);
+                                            printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
+                                        }
+                                    }
+                                }
+                            }
+                            printf("**********************************************************\n");
+                            break;
+                        default:
+                            printf("Numero invalido");
+                            break;
+                        }
+                        break;
+
+                    case 3: // Reservar uma cadeira em uma sessão
+                        {
+                            char nome_filme[51];
+                            int num_cadeiras;
+                            int num_filme;
+                            char horario_pesquisa[10];
+                            int num_sessao = -1;
+
+                            printf("Digite o nome do filme que deseja reservar/comprar cadeiras: ");
+                            fgets(nome_filme, sizeof(nome_filme), stdin);
+                            nome_filme[strcspn(nome_filme, "\n")] = '\0';
+
+                            for (num_filme = 0; num_filme < filme; num_filme++)
+                            {
+                                if (strcmp(c[num_filme].filme, nome_filme) == 0)
+                                {
+                                    break; // Aqui o filme foi encontrado
+                                }
+                            }
+                            if (num_filme == filme)
+                            {
+                                printf("Filme nao encontrado.\n");
+                                break; // Não encontrado
+                            }
+                            printf("Digite o horario da sessao que deseja reservar/comprar: ");
+                            scanf("%9s", horario_pesquisa);
+
+                            for (int i = 0; i < c[num_filme].num_sessoes; i++)
+                            {
+                                if (strcmp(c[num_filme].hor_sessoes[i], horario_pesquisa) == 0)
+                                {
+                                    num_sessao = i + 1; // Sessão encontrada (i + 1 porque as sessões são numeradas a partir de 1)
+                                    break;
+                                }
+                            }
+                            if (num_sessao == -1)
+                            {
+                                printf("Horario de sessao nao encontrado.\n");
+                                break;
+                            }
+      
+                            printf("Quantidade de cadeiras disponiveis para a sessao das %s do filme %s: %d\n", c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme, c[num_filme].cadeiras[num_sessao - 1]);
+
+                            printf("Digite a quantidade de cadeiras que deseja reservar/comprar: ");
+                            scanf("%d", &num_cadeiras);
+
+                            if (num_cadeiras <= 0 || num_cadeiras > c[num_filme].cadeiras[num_sessao - 1])
+                            {
+                                printf("Quantidade de cadeiras invalida.\n");
+                                break;
+                            }
+                            // Atualiza a quantidade de cadeiras disponíveis na sessão
+                            c[num_filme].cadeiras[num_sessao - 1] -= num_cadeiras;
+
+                            printf("%d cadeira(s) reservada(s)/comprada(s) com sucesso para a sessao %s do filme %s.\n",
+                            num_cadeiras, c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme);
+                            break;
+                        }
+
+                        break;
+                    case 4:
+                        //Salvar informações das sessões em um arquivo
+                        break;
+                    case 5:
+                        retornarMenuDeEntrada();
+                        break;
+                    default:
+                        printf("Numero Invalido\n");
+                    }
+                    retornarMenuDeEntrada(); // Chama a função para retornar ao menu
+                
+                } while(1);
+                break;
+
+            case 2:
+                //MENU DE OPÇÕES DO GERENTE
+                do {
+                    //Verificação de acesso do gerente
+                    while(1)
+                    {
+                        printf("Gerente, insira a senha de acesso:\n"); // A senha é 1234, sem espaços
+                        scanf("%d", &senha_informada);
+                            
+                        if(senha_informada == senha)
+                        {
+                            printf("Acesso autorizado como gerente.\n");
+                            break;
+                        }    
+                        else
+                        {
+                            printf("Senha incorreta. Por favor, tente novamente.\n\n");
+                            while (getchar() != '\n');
                         }
                     }
-                }
-                printf("**********************************************************\n");
+
+                    mostrarMenuGerente(); // Chama função para mostrar o Menu de opções
+                    scanf("%d", &escolhaGerente);
+                    clearBuffer();
+
+                    printf("Voce escolheu a opcao %d\n", escolhaGerente);
+
+                    switch (escolhaGerente)
+                    {
+                    case 1: // Cadastrar filmes
+
+                        if (filme > 30)
+                        {
+                            printf("Quantidade maxima de filmes cadastrados atiginda (30)"); // Caso tenha 30 filmes já cadastrados impossibilita o cadastro de mais um.
+                            break;
+                        }
+                        int numFilmes = 0; // Variavel para perguntar a quantidade de filmes que o Gerente quer cadastrar
+                        printf("Quantos filmes queres cadastrar?\n");
+                        scanf("%d", &numFilmes);
+                        for(int i = 0; i < numFilmes; i++) 
+                        {
+                            clearBuffer();
+                            printf("Qual o nome do filme a ser cadastrado?\n");
+                            fgets(c[filme].filme, sizeof(c[filme].filme), stdin);
+                            c[filme].filme[strcspn(c[filme].filme, "\n")] = '\0'; // Remove a quebra de linha para conseguir inserir quantas sessões disponíveis para o filme
+
+                            printf("Quantas sessoes disponiveis para o filme %s?\n", c[filme].filme);
+                            scanf("%d", &c[filme].num_sessoes);
+                            
+                            c[filme].hor_sessoes = (char**)malloc(c[filme].num_sessoes * sizeof(char*));
+                            c[filme].cadeiras = (int*)malloc(c[filme].num_sessoes * sizeof(int));
+
+                            for(j = 0; j < c[filme].num_sessoes; j++)
+                            {
+                                printf("Qual o horario da sessao %d?\n", j + 1);
+                                // Alocação dinâmica
+                                c[filme].hor_sessoes[j] = (char*)malloc(10 * sizeof(char));
+                                scanf("%9s", c[filme].hor_sessoes[j]); 
+                                clearBuffer();
+
+                                while(1)
+                                {
+                                    printf("Atencao, limite de cadeiras disponiveis por sessao: 10\n");
+                                    printf("Quantas cadeiras disponiveis para a sessao das %s?\n", c[filme].hor_sessoes[j]);
+                                    scanf("%d", &c[filme].cadeiras[j]);
+
+                                    if(c[filme].cadeiras[j] <= 10)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        printf("Limite de cadeiras excedidas.\n");
+                                    }
+                                }
+                            }
+                            filme++;
+                        }
+                        break;
+
+                    case 2: // Editar o horario de uma sessao e a quantidade de cadeiras 
+                        if (c[0].num_sessoes == 0)
+                        {
+                            printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
+                        }
+                        else
+                        {
+                            editarSessao(c);
+                        }
+                        break;
+
+                    case 3:
+                        if (filme == 0)
+                        {
+                            printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
+                        }
+                        else
+                        {
+                            removerSessao(c, filme);
+                        }
+                        break;
+
+                    case 4:
+                        printf("Encerrando o Programa\n");
+                        return 0;
+                    case 5:
+                        retornarMenuDeEntrada();
+                        break;
+                    default:
+                        printf("Numero Invalido\n");
+                    }
+                    retornarMenuDeEntrada(); //chama a função para retornar ao menu
+                
+                } while(1);
                 break;
             default:
-                printf("Numero invalido");
-                break;
-            }
-            break;
-        case 4: // Editar o horario de uma sessao e a quantidade de cadeiras 
-            if (c[0].num_sessoes == 0)
-            {
-                printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
-            }
-            else
-            {
-                editarSessao(c);
-            }
-            break;
-        case 5:
-            if (filme == 0)
-            {
-                printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
-            }
-            else
-            {
-                removerSessao(c, filme);
-            }
-            break;
-        case 6: // Comprar reservar uma cadeira em uma sessao
-            {
-                char nome_filme[51];
-                int num_cadeiras;
-                int num_filme;
-                char horario_pesquisa[10];
-                int num_sessao = -1;
-
-                printf("Digite o nome do filme que deseja reservar/comprar cadeiras: ");
-                fgets(nome_filme, sizeof(nome_filme), stdin);
-                nome_filme[strcspn(nome_filme, "\n")] = '\0';
-
-                for (num_filme = 0; num_filme < filme; num_filme++)
-                {
-                    if (strcmp(c[num_filme].filme, nome_filme) == 0)
-                    {
-                        break; // Aqui o filme foi encontrado
-                    }
-                }
-                if (num_filme == filme)
-                {
-                    printf("Filme nao encontrado.\n");
-                    break; // Não encontrado
-                }
-                printf("Digite o horario da sessao que deseja reservar/comprar: ");
-                scanf("%9s", horario_pesquisa);
-
-                for (int i = 0; i < c[num_filme].num_sessoes; i++)
-                {
-                    if (strcmp(c[num_filme].hor_sessoes[i], horario_pesquisa) == 0)
-                    {
-                        num_sessao = i + 1; // Sessão encontrada (i + 1 porque as sessões são numeradas a partir de 1)
-                        break;
-                    }
-                }
-                if (num_sessao == -1)
-                {
-                    printf("Horario de sessao nao encontrado.\n");
-                    break;
-                }
-
-                
-                printf("Quantidade de cadeiras disponiveis para a sessao das %s do filme %s: %d\n", c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme, c[num_filme].cadeiras[num_sessao - 1]);
-
-
-                printf("Digite a quantidade de cadeiras que deseja reservar/comprar: ");
-                scanf("%d", &num_cadeiras);
-
-                if (num_cadeiras <= 0 || num_cadeiras > c[num_filme].cadeiras[num_sessao - 1])
-                {
-                    printf("Quantidade de cadeiras invalida.\n");
-                    break;
-                }
-                // Atualiza a quantidade de cadeiras disponíveis na sessão
-                c[num_filme].cadeiras[num_sessao - 1] -= num_cadeiras;
-
-                printf("%d cadeira(s) reservada(s)/comprada(s) com sucesso para a sessao %s do filme %s.\n",
-                num_cadeiras, c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme);
-                break;
-            }
-            break;
-        case 7:
-            //Salvar informações das sessões, incluindo quantidade de cadeiras livres e ocupadas, em um arquivo
-            break;
-        case 8:
-            printf("Encerrando o Programa\n");
-            return 0;
-
-        default:
-            printf("Numero Invalido\n");
+                printf("Numero Invalido\n");
         }
-        retornarMenu(); //chama a função para retornar ao menu
-    
+        retornarMenuDeEntrada();
     } while(1);
-    
+
     return 0;
 }
