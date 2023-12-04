@@ -211,12 +211,14 @@ int main()
                             char pesquisaNome[30];
                             char pesquisaHora[10];
                         case 1: // Busca pelo nome do filme
+                            clearBuffer();
                             printf("Qual o nome do filme?\n");
-                            scanf("%s", pesquisaNome);
+                            fgets(pesquisaNome, sizeof(pesquisaNome), stdin);
+                            pesquisaNome[strcspn(pesquisaNome, "\n")] = '\0';
                             printf("*******************FILME CORRESPONDENTE*******************\n");
                             for (int i = 0; i < filme; i++)
                             {
-                                if (strcmp(pesquisaNome, c[i].filme) == 0)
+                                if (stricmp(pesquisaNome, c[i].filme) == 0)
                                 {
                                     printf("FILME %d: %s\n", i + 1, c[i].filme);
                                     printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
@@ -272,6 +274,7 @@ int main()
                             char horario_pesquisa[10];
                             int num_sessao = -1;
 
+                            clearBuffer();
                             printf("Digite o nome do filme que deseja reservar/comprar cadeiras: ");
                             fgets(nome_filme, sizeof(nome_filme), stdin);
                             nome_filme[strcspn(nome_filme, "\n")] = '\0';
