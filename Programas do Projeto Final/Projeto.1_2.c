@@ -4,7 +4,6 @@
 
 //Projeto Final que será enviado para o professor - Dar commits nesse aqui
 
-
 void clearBuffer()
 {
     int c;
@@ -46,6 +45,12 @@ void mostrarMenuCliente()
     printf("Escolha uma opcao:\n");
 }
 
+void retornarMenuCliente()
+{
+    printf("\nPressione Enter para retornar ao Menu do Cliente\n");
+    clearBuffer();
+}
+
 void mostrarMenuGerente() // Função para mostrar menu de opções
 {
     printf("===================== MENU DO GERENTE ====================\n");
@@ -57,6 +62,11 @@ void mostrarMenuGerente() // Função para mostrar menu de opções
     printf("6. Sair do programa\n");
     printf("==========================================================\n");
     printf("Escolha uma opcao:\n");
+}
+
+void retornarMenuGerente()
+{
+    printf("\nPressione Enter para retornar ao Menu do Gerente\n");
 }
 
 void editarSessao(struct cadastro_filmes c[])
@@ -144,7 +154,7 @@ int main()
     int escolhaCliente;
     int escolhaGerente;
     int filme = 0;
-    int escolhaCaso2 = 0;
+    int escolhaCaso2 = 0; 
     struct cadastro_filmes c[30]; // Permite o cadastro de 30 filmes
 
     do {
@@ -157,6 +167,7 @@ int main()
             case 1:
                 //MENU DE OPÇÕES DO CLIENTE
                 do {
+                    int sairMenuCliente = 0;
                     mostrarMenuCliente(); // Chama função para mostrar o Menu de opções
                     scanf("%d", &escolhaCliente);
                     clearBuffer();
@@ -309,13 +320,16 @@ int main()
                     case 4:
                         //Salvar informações das sessões em um arquivo
                         break;
-                    case 5:
-                        retornarMenuDeEntrada();
-                        break;
+                    case 5: // Retornar ao Menu de Entrada
+                        sairMenuCliente = 1;
+                        break; 
                     default:
                         printf("Numero Invalido\n");
                     }
-                    retornarMenuDeEntrada(); // Chama a função para retornar ao menu
+
+                    if(sairMenuCliente)
+                        break;
+                    retornarMenuCliente(); // Chama a função para retornar ao menu
                 
                 } while(1);
                 break;
@@ -323,6 +337,7 @@ int main()
             case 2:
                 //MENU DE OPÇÕES DO GERENTE
                 do {
+                    int sairMenuGerente = 0; 
                     //Verificação de acesso do gerente
                     while(1)
                     {
@@ -427,7 +442,7 @@ int main()
                         break;
 
                     case 5: // Voltar ao menu de entrada
-                        retornarMenuDeEntrada();
+                        sairMenuGerente = 1;
                         break;
 
                     case 6: // Sair do programa
@@ -437,13 +452,16 @@ int main()
                     default:
                         printf("Numero Invalido\n");
                     }
-                    retornarMenuDeEntrada(); //chama a função para retornar ao menu
+
+                    if(sairMenuGerente)
+                        break; 
+                    retornarMenuGerente(); //chama a função para retornar ao menu
                 
                 } while(1);
                 break;
             default:
                 printf("Numero Invalido\n");
-        }
+        } 
         retornarMenuDeEntrada();
     } while(1);
 
