@@ -23,6 +23,7 @@ void mostrarMenuDeEntrada()
     printf("===================== MENU DE ENTRADA ====================\n");
     printf("1. Acesso como Cliente\n");
     printf("2. Acesso como Gerente\n");
+    printf("3. Encerrar o programa\n");
     printf("==========================================================\n");
     printf("Escolha o tipo de acesso:\n");
 }
@@ -187,7 +188,13 @@ int main()
                                 printf("----------------------------------------------------------\n");
                                 printf("SESSAO %d:\n", j + 1);
                                 printf("Horario: %s\n", c[i].hor_sessoes[j]);
-                                printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
+                                printf("Quantidade total de cadeiras: %d\n", c[i].cadeiras[j]);
+                                 
+          
+                                int cadeiras_disponiveis = c[i].cadeiras[j];
+           
+                                printf("Quantidade de cadeiras disponíveis: %d\n", cadeiras_disponiveis);
+           
                             }
 
                             printf("==========================================================\n");
@@ -516,6 +523,10 @@ int main()
                 
                 } while(1);
                 break;
+
+                case 3: //Sair do programa MENU
+                        printf("Encerrando o programa\n");
+                        return 0;
             default:
                 printf("Numero Invalido\n");
         } 
