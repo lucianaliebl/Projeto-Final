@@ -417,7 +417,7 @@ int main()
 
                     case 2: // Inserir uma nova sessao para um filme ja cadastrado
                         {
-                            if(filme ==0)
+                            if(filme == 0)
                             {
                                 printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
                                 break;
