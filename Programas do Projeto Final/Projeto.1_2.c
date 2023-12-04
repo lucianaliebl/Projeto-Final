@@ -416,7 +416,64 @@ int main()
                         break;
 
                     case 2: // Inserir uma nova sessao para um filme ja cadastrado
-                        // Adicionar o código desa tarefa aqui
+                        {
+                            if(filme ==0)
+                            {
+                                printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
+                                break;
+                            }
+
+                            char nome_filme[51];
+                            int num_filme;
+                            
+                            printf("Digite o nome do filme que deseja adicionar uma nova sessao: ");
+                            clearBuffer();
+                            fgets(nome_filme, sizeof(nome_filme), stdin);
+                            nome_filme[strcspn(nome_filme, "\n")] = '\0';
+
+                            for (num_filme = 0; num_filme < filme; num_filme++)
+                            {
+                                if (strcmp(c[num_filme].filme, nome_filme)==0)
+                                {
+                                    break;
+                                }
+                            }
+
+                            if (num_filme == filme)
+                            {
+                                printf("Filme nao encontrado.\n");
+                                break;
+                            }
+
+                            int num_sessoes_atual = c[num_filme].num_sessoes;
+                            c[num_filme].num_sessoes++;
+
+                            c[num_filme].hor_sessoes = (char**)realloc(c[num_filme].hor_sessoes, c[num_filme].num_sessoes * sizeof(char*));
+                            c[num_filme].cadeiras = (int*)realloc(c[num_filme].cadeiras, c[num_filme].num_sessoes * sizeof(int));
+
+                            printf("Qual o horario da nova sessao para o filme %s?\n", c[num_filme].filme);
+                            c[num_filme].hor_sessoes[num_sessoes_atual] = (char*)malloc(10 * sizeof(char));
+                            scanf("%9s", c[num_filme].hor_sessoes[num_sessoes_atual]);
+                            clearBuffer();
+
+                            while (1)
+                            {
+                                printf("Atencao, limite de cadeiras disponiveis por sessao: 10\n");
+                                printf("Quantas cadeiras disponiveis para a nova sessao das %s?\n", c[num_filme].hor_sessoes[num_sessoes_atual]);
+                                scanf("%d", &c[num_filme].cadeiras[num_sessoes_atual]);
+
+                                if (c[num_filme].cadeiras[num_sessoes_atual] <= 10)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    printf("Limite de cadeiras excedidas.\n");
+                                }
+                            }
+
+                            printf("Nova sessao adicionada com sucesso para o filme %s.\n", c[num_filme].filme);
+                        }
                         break;
 
                     case 3: // Editar o horário e a quantidade de cadeiras de uma sessão
