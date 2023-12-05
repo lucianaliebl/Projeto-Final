@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 //Projeto Final que será enviado para o professor - Dar commits nesse aqui
 
@@ -158,6 +159,7 @@ int main()
     int escolhaGerente;
     int filme = 0;
     int escolhaCaso2 = 0; 
+    bool gerenteAutenticado = false; // Variavel para controlar a autenticação do gerente 
     struct cadastro_filmes c[30]; // Permite o cadastro de 30 filmes
                                     
 
@@ -346,7 +348,9 @@ int main()
             case 2:
                 //MENU DE OPÇÕES DO GERENTE
                 do {
-                    int sairMenuGerente = 0; 
+                  int sairMenuGerente = 0; 
+                  if(!gerenteAutenticado) // Código que será executado se o gerente não estiver autenticado
+                  {
                     //Verificação de acesso do gerente
                     while(1)
                     {
@@ -355,6 +359,7 @@ int main()
                             
                         if(senha_informada == senha)
                         {
+                            gerenteAutenticado = true;
                             printf("Acesso autorizado como gerente.\n");
                             break;
                         }    
@@ -364,7 +369,7 @@ int main()
                             while (getchar() != '\n');
                         }
                     }
-
+                  }
                     mostrarMenuGerente(); // Chama função para mostrar o Menu de opções
                     scanf("%d", &escolhaGerente);
                     clearBuffer();
