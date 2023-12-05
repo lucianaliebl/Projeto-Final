@@ -16,6 +16,7 @@ struct cadastro_filmes
     int num_sessoes; // Quantidade de sessões de cada filme
     char** hor_sessoes; // Horário de cada sessão
     int* cadeiras;  // Nº de cadeiras para cada sessão
+    int* cadeirasDisponiveis; // Nº de cadeiras compradas
 };
 
 void mostrarMenuDeEntrada()
@@ -136,13 +137,14 @@ void removerSessao(struct cadastro_filmes c[], int total_filmes)
     {
         c[num_filme - 1].hor_sessoes[i] = c[num_filme - 1].hor_sessoes[i + 1];
         c[num_filme - 1].cadeiras[i] = c[num_filme - 1].cadeiras[i + 1];
+        c[num_filme - 1].cadeirasDisponiveis[i] = c[num_filme - 1].cadeiras[i + 1];
     }
 
     c[num_filme - 1].num_sessoes--;
 
     c[num_filme - 1].hor_sessoes = (char**)realloc(c[num_filme - 1].hor_sessoes, c[num_filme - 1].num_sessoes * sizeof(char*));
     c[num_filme - 1].cadeiras = (int*)realloc(c[num_filme - 1].cadeiras, c[num_filme - 1].num_sessoes * sizeof(int));
-
+    c[num_filme - 1].cadeirasDisponiveis = (int*)realloc(c[num_filme - 1].cadeirasDisponiveis, c[num_filme - 1].num_sessoes * sizeof(int));
     printf("Sessao removida com sucesso!\n");
 }
 
@@ -157,6 +159,7 @@ int main()
     int filme = 0;
     int escolhaCaso2 = 0; 
     struct cadastro_filmes c[30]; // Permite o cadastro de 30 filmes
+                                    
 
     do {
         mostrarMenuDeEntrada();
@@ -189,11 +192,7 @@ int main()
                                 printf("SESSAO %d:\n", j + 1);
                                 printf("Horario: %s\n", c[i].hor_sessoes[j]);
                                 printf("Quantidade total de cadeiras: %d\n", c[i].cadeiras[j]);
-                                 
-          
-                                int cadeiras_disponiveis = c[i].cadeiras[j];
-           
-                                printf("Quantidade de cadeiras disponíveis: %d\n", cadeiras_disponiveis);
+                                printf("Quantidade de cadeiras disponiveis: %d\n", c[i].cadeirasDisponiveis[j]);
            
                             }
 
@@ -308,18 +307,18 @@ int main()
                                 break;
                             }
       
-                            printf("Quantidade de cadeiras disponiveis para a sessao das %s do filme %s: %d\n", c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme, c[num_filme].cadeiras[num_sessao - 1]);
+                            printf("Quantidade de cadeiras disponiveis para a sessao das %s do filme %s: %d\n", c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme, c[num_filme].cadeirasDisponiveis[num_sessao - 1]);
 
                             printf("Digite a quantidade de cadeiras que deseja reservar/comprar: ");
                             scanf("%d", &num_cadeiras);
 
-                            if (num_cadeiras <= 0 || num_cadeiras > c[num_filme].cadeiras[num_sessao - 1])
+                            if (num_cadeiras <= 0 || num_cadeiras > c[num_filme].cadeirasDisponiveis[num_sessao - 1])
                             {
                                 printf("Quantidade de cadeiras invalida.\n");
                                 break;
                             }
                             // Atualiza a quantidade de cadeiras disponíveis na sessão
-                            c[num_filme].cadeiras[num_sessao - 1] -= num_cadeiras;
+                            c[num_filme].cadeirasDisponiveis[num_sessao - 1] -= num_cadeiras;
 
                             printf("%d cadeira(s) reservada(s)/comprada(s) com sucesso para a sessao %s do filme %s.\n",
                             num_cadeiras, c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme);
@@ -396,6 +395,7 @@ int main()
                             
                             c[filme].hor_sessoes = (char**)malloc(c[filme].num_sessoes * sizeof(char*));
                             c[filme].cadeiras = (int*)malloc(c[filme].num_sessoes * sizeof(int));
+                            c[filme].cadeirasDisponiveis = (int*)malloc(c[filme].num_sessoes * sizeof(int));
 
                             for(j = 0; j < c[filme].num_sessoes; j++)
                             {
@@ -413,6 +413,7 @@ int main()
 
                                     if(c[filme].cadeiras[j] <= 10)
                                     {
+                                    c[filme].cadeirasDisponiveis[j] = c[filme].cadeiras[j];
                                         break;
                                     }
                                     else
