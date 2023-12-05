@@ -438,7 +438,6 @@ int main()
                             int num_filme;
                             
                             printf("Digite o nome do filme que deseja adicionar uma nova sessao: ");
-                            clearBuffer();
                             fgets(nome_filme, sizeof(nome_filme), stdin);
                             nome_filme[strcspn(nome_filme, "\n")] = '\0';
 
