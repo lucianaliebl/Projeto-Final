@@ -509,14 +509,15 @@ int main()
                             }
 
                             int num_sessoes_atual = c[num_filme].num_sessoes;
+                            c[num_filme].cadeirasDisponiveis = (int*)realloc(c[num_filme].cadeirasDisponiveis, c[num_filme].num_sessoes * sizeof(int));                            
                             c[num_filme].num_sessoes++;
-
                             c[num_filme].hor_sessoes = (char**)realloc(c[num_filme].hor_sessoes, c[num_filme].num_sessoes * sizeof(char*));
                             c[num_filme].cadeiras = (int*)realloc(c[num_filme].cadeiras, c[num_filme].num_sessoes * sizeof(int));
-
-                            printf("Qual o horario da nova sessao para o filme %s?\n", c[num_filme].filme);
+                            c[num_filme].cadeirasDisponiveis = (int*)realloc(c[num_filme].cadeirasDisponiveis, c[num_filme].num_sessoes * sizeof(int));
                             c[num_filme].hor_sessoes[num_sessoes_atual] = (char*)malloc(10 * sizeof(char));
-                            scanf("%9s", c[num_filme].hor_sessoes[num_sessoes_atual]);
+                            
+                            printf("Qual o horario da nova sessao para o filme %s?\n", c[num_filme].filme);
+                            scanf("%9s", c[num_filme].hor_sessoes[c[num_filme].num_sessoes - 1]);
                             clearBuffer();
 
                             while (1)
@@ -527,6 +528,7 @@ int main()
 
                                 if (c[num_filme].cadeiras[num_sessoes_atual] <= 10)
                                 {
+                                    c[num_filme].cadeirasDisponiveis[num_sessoes_atual] = c[num_filme].cadeiras[num_sessoes_atual];
                                     break;
                                 }
                                 else
