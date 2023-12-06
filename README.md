@@ -18,7 +18,7 @@ O presente projeto tem por objetivo funcionar com um sistema para um cinema.
 1. Baixar o compilador g++;
 2. Baixar VSCode;
 3. Baixar a extensao Compile&Run;
-4. ```git clone https://github.com/lucianaliebl/Projeto-Final.git```
+4. ```git clone https://github.com/lucianaliebl/Projeto-Final.git```;
 5. Abrir a pasta Projeto-Final;
 6. Apertar F6.
 
