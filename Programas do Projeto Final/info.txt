@@ -1,0 +1,27 @@
+====================FILMES DISPONIVEIS====================
+FILME 1: O Avatar
+Quantidade de sessoes: 2
+----------------------------------------------------------
+SESSAO 1:
+Horario: 20h
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 0
+----------------------------------------------------------
+SESSAO 2:
+Horario: 22h
+Quantidade total de cadeiras: 8
+Quantidade de cadeiras disponiveis: 8
+==========================================================
+FILME 2: O Titanic
+Quantidade de sessoes: 2
+----------------------------------------------------------
+SESSAO 1:
+Horario: 13h
+Quantidade total de cadeiras: 6
+Quantidade de cadeiras disponiveis: 6
+----------------------------------------------------------
+SESSAO 2:
+Horario: 16h
+Quantidade total de cadeiras: 4
+Quantidade de cadeiras disponiveis: 4
+==========================================================
