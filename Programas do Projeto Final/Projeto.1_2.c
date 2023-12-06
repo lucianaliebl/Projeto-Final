@@ -159,6 +159,8 @@ int main()
     int escolhaGerente;
     int filme = 0;
     int escolhaCaso2 = 0; 
+    FILE *p;
+    char sobscrever = "s";
     bool gerenteAutenticado = false; // Variavel para controlar a autenticação do gerente 
     struct cadastro_filmes c[30]; // Permite o cadastro de 30 filmes
                                     
@@ -330,6 +332,48 @@ int main()
                         break;
                     case 4:
                         //Salvar informações das sessões em um arquivo
+                        
+                        if ((p = fopen("info.txt", "r")))
+                        {
+                            printf("Um arquivo com informacoes de sessao ja existe, deseja sobrescrever? (S/n)");
+                            scanf("%c", &sobscrever);
+                            if(sobscrever == 'n')
+                            {
+                                fclose(p);
+                                printf("Operacao cancelada");
+                                retornarMenuCliente();
+                                break;
+                            } 
+                            fclose(p); 
+                        }
+                        
+                        p = fopen("info.txt","w");
+                        if (p == NULL)
+                        {
+                            printf("Erro ao salvar informacoes");
+                            break;
+                        }
+                        fprintf(p, "%30s\n", "====================FILMES DISPONIVEIS====================");
+
+                        for(int i = 0; i < filme; i++)
+                        {
+                            fprintf(p, "FILME %d: %s\n", i + 1, c[i].filme);
+                            fprintf(p, "Quantidade de sessoes: %d\n", c[i].num_sessoes);
+
+                            for(int j = 0; j < c[i].num_sessoes; j++)
+                            {
+                                fprintf(p, "----------------------------------------------------------\n");
+                                fprintf(p, "SESSAO %d:\n", j + 1);
+                                fprintf(p, "Horario: %s\n", c[i].hor_sessoes[j]);
+                                fprintf(p, "Quantidade total de cadeiras: %d\n", c[i].cadeiras[j]);
+                                fprintf(p, "Quantidade de cadeiras disponiveis: %d\n", c[i].cadeirasDisponiveis[j]);
+           
+                            }
+
+                            fprintf(p, "==========================================================\n");
+                        }
+                        fclose(p);
+                        printf("Informacoes salvas com sucesso em no arquivo ''Info.txt''");
                         break;
                     case 5: // Retornar ao Menu de Entrada
                         sairMenuCliente = 1;

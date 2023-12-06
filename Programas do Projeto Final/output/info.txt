@@ -1,0 +1,85 @@
+====================FILMES DISPONIVEIS====================
+FILME 1: Panico 
+Quantidade de sessoes: 2
+----------------------------------------------------------
+SESSAO 1:
+Horario: 10:30
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 2:
+Horario: 12:30
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+==========================================================
+FILME 2: Saw
+Quantidade de sessoes: 3
+----------------------------------------------------------
+SESSAO 1:
+Horario: 9:30
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 2:
+Horario: 21:30
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 3:
+Horario: 12:30
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+==========================================================
+FILME 3: Barbie 2
+Quantidade de sessoes: 10
+----------------------------------------------------------
+SESSAO 1:
+Horario: 7:15
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 2:
+Horario: 9:30
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 3:
+Horario: 11:45
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 4:
+Horario: 13:00
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 5:
+Horario: 15:15
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 6:
+Horario: 17:30
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 7:
+Horario: 19:45
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 8:
+Horario: 22:00
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 9:
+Horario: 21:30
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+----------------------------------------------------------
+SESSAO 10:
+Horario: 00:00
+Quantidade total de cadeiras: 10
+Quantidade de cadeiras disponiveis: 10
+==========================================================
