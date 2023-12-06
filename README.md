@@ -3,7 +3,7 @@
 ## Descrição
 O presente projeto tem por objetivo funcionar com um sistema para um cinema.
 
-## Funcionalidades 
+## Funcionalidades
 ### Gerente
 1. Cadastrar um filme e suas sessoes;
 2. Inserir uma nova sessao para um filme ja cadastrado;
