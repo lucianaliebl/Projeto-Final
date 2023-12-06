@@ -240,23 +240,27 @@ int main()
                         case 2: // Busca pelo horário da sessão
                             printf("Qual o horario da sessao\n");
                             scanf("%s", pesquisaHora);
-                            printf("*******************FILME CORRESPONDENTE*******************\n");
+                            
                             for (int i = 0; i < filme; i++)
                             {
                                 for (int j = 0; j < c[i].num_sessoes; j++)
                                 {
                                     if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0)
                                     {
+                                        printf("*******************FILME CORRESPONDENTE*******************\n");
                                         printf("FILME %d: %s\n", i + 1, c[i].filme);
                                         printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
                                         
 
                                         for(int j = 0; j < c[i].num_sessoes; j++)
                                         {
+                                            if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0)
+                                            {
                                             printf("----------------------------------------------------------\n");
                                             printf("SESSAO %d:\n", j + 1);
                                             printf("Horario: %s\n", c[i].hor_sessoes[j]);
                                             printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
+                                            }
                                         }
                                     }
                                 }
