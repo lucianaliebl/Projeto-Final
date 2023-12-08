@@ -213,7 +213,6 @@ int main()
 
                             printf("==========================================================\n");
                         }
-                        clearBuffer();
                         retornarMenuCliente();
                         break;
 
