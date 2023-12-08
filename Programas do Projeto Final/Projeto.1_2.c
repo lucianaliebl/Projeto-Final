@@ -229,11 +229,11 @@ int main()
                             clearBuffer();
                             printf("Qual o nome do filme?\n");
                             fgets(pesquisaNome, sizeof(pesquisaNome), stdin);
-                            pesquisaNome[strcspn(pesquisaNome, "\n")] = '\0';
+                            pesquisaNome[strcspn(pesquisaNome, "\n")] = '\0'; 
                             printf("*******************FILME CORRESPONDENTE*******************\n");
                             for (int i = 0; i < filme; i++)
                             {
-                                if (stricmp(pesquisaNome, c[i].filme) == 0)
+                                if (stricmp(pesquisaNome, c[i].filme) == 0) // verifica filme por filme se tem alguma correpondencia de nome, caso tenha imprime
                                 {
                                     printf("FILME %d: %s\n", i + 1, c[i].filme);
                                     printf("Quantidade de sessoes: %d\n", c[i].num_sessoes);
@@ -258,7 +258,7 @@ int main()
                             {
                                 for (int j = 0; j < c[i].num_sessoes; j++)
                                 {
-                                    if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0)
+                                    if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0) // pesquisa por correspondencia de horario sessao por sessao, caso tenha imprime as informacoes basicas do filme
                                     {
                                         printf("*******************FILME CORRESPONDENTE*******************\n");
                                         printf("FILME %d: %s\n", i + 1, c[i].filme);
@@ -267,7 +267,7 @@ int main()
 
                                         for(int j = 0; j < c[i].num_sessoes; j++)
                                         {
-                                            if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0)
+                                            if (strcmp(pesquisaHora, c[i].hor_sessoes[j]) == 0) // pesquisa dnv correspondencia de horario mnas dessa vez imprimindo as sessoes correpondentes do filme
                                             {
                                             printf("----------------------------------------------------------\n");
                                             printf("SESSAO %d:\n", j + 1);
@@ -355,7 +355,7 @@ int main()
                     case 4:
                         //Salvar informações das sessões em um arquivo
                         
-                        if ((p = fopen("info.txt", "r")))
+                        if ((p = fopen("info.txt", "r"))) //Codigo que verifica se já existe um arquivo de informacoes
                         {
                             printf("Um arquivo com informacoes de sessao ja existe, deseja sobrescrever? (s/N)\n");
                             scanf("%c", &sobscrever);
@@ -370,15 +370,16 @@ int main()
                             fclose(p); 
                         }
                         
-                        p = fopen("info.txt","w");
-                        if (p == NULL)
+                        p = fopen("info.txt","w"); //Abre o arquivo, caso não tenha, cria um arquivo para armazenar as informacoes
+                        if (p == NULL) //Caso ocorra algum problema no arquivo, informa o usuario e impossibilita a gravacao de informacoes 
                         {
                             printf("Erro ao salvar informacoes");
+                            fclose(p);
                             break;
                         }
                         fprintf(p, "%30s\n", "====================FILMES DISPONIVEIS====================");
 
-                        for(int i = 0; i < filme; i++)
+                        for(int i = 0; i < filme; i++) // basicamente o caso 1 porem em um arquivo em vez de no terminal
                         {
                             fprintf(p, "FILME %d: %s\n", i + 1, c[i].filme);
                             fprintf(p, "Quantidade de sessoes: %d\n", c[i].num_sessoes);
