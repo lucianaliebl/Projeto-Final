@@ -72,25 +72,30 @@ void retornarMenuGerente()
     printf("\nPressione Enter para retornar ao Menu do Gerente\n");
 }
 
-void editarSessao(struct cadastro_filmes c[]){
+void editarSessao(struct cadastro_filmes c[])
+{
     int num_filme, num_sessao;
 
+    //solicita o NUMERO do filme que vc deseja editar
     printf("Digite o numero do filme que deseja editar a sessao: ");
     scanf("%d", &num_filme);
     clearBuffer(); //limpa o buffer de entrada para evitar problemas de leitura
 
     //verificar se o número do filme está dentro do intervalo válido (1 a 4)
-    if (num_filme < 1 || num_filme > 30){
+    if (num_filme < 1 || num_filme > 30)
+    {
         printf("Filme invalido.\n");
         return;
     }
-    
+
+    //solicita o NUMERO da sessão que deseja editar
     printf("Digite o numero da sessao que deseja editar: ");
     scanf("%d", &num_sessao);
-    clearBuffer();
+    clearBuffer(); //limpar buffer
     
     //verifica se o número da sessão está dentro do intervalo válido para o filme selecionado
-    if (num_sessao < 1 || num_sessao > c[num_filme - 1].num_sessoes){
+    if (num_sessao < 1 || num_sessao > c[num_filme - 1].num_sessoes)
+    {
         printf("Numero de sessao invalido.\n");
         return;
     }
@@ -98,17 +103,17 @@ void editarSessao(struct cadastro_filmes c[]){
     //atualizar o novo horário da sessão
     printf("Digite o novo horario da sessao: ");
     scanf("%s", c[num_filme - 1].hor_sessoes[num_sessao - 1]);
-    clearBuffer();
+    clearBuffer(); //limpar buffer
 
     //atualizar a quantidade de cadeiras na sessão
     printf("Digite a nova quantidade total de cadeiras: ");
     scanf("%d", &c[num_filme - 1].cadeiras[num_sessao - 1]);
-    clearBuffer();
+    clearBuffer(); //limpar buffer
     
     //atualizar a quantidade de cadeiras disponiveis na sessão
     printf("Digite a nova quantidade de cadeiras disponiveis: ");
     scanf("%d", &c[num_filme - 1].cadeirasDisponiveis[num_sessao - 1]);
-    clearBuffer();
+    clearBuffer(); //limpar buffer
 
     printf("Informacoes da sessao editadas com sucesso!\n");
 }
@@ -530,7 +535,7 @@ int main()
                             scanf("%9s", c[num_filme].hor_sessoes[c[num_filme].num_sessoes - 1]);
                             clearBuffer(); //limpar o buffer de entrada
 
-                            while (1)
+                            while (1) // loop indefinidamente:
                             {
                                 printf("Atencao, limite de cadeiras disponiveis por sessao: 10\n");
                                 printf("Quantas cadeiras disponiveis para a nova sessao das %s? ", c[num_filme].hor_sessoes[num_sessoes_atual]);
