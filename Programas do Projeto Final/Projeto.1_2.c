@@ -72,34 +72,35 @@ void retornarMenuGerente()
     printf("\nPressione Enter para retornar ao Menu do Gerente\n");
 }
 
-void editarSessao(struct cadastro_filmes c[])
-{
+void editarSessao(struct cadastro_filmes c[]){
     int num_filme, num_sessao;
 
     printf("Digite o numero do filme que deseja editar a sessao: ");
     scanf("%d", &num_filme);
-    clearBuffer();
+    clearBuffer(); //limpa o buffer de entrada para evitar problemas de leitura
 
-    if (num_filme < 1 || num_filme > 4)
-    {
+    //verificar se o número do filme está dentro do intervalo válido (1 a 4)
+    if (num_filme < 1 || num_filme > 4){
         printf("Filme invalido.\n");
         return;
     }
-
+    
     printf("Digite o numero da sessao que deseja editar: ");
     scanf("%d", &num_sessao);
     clearBuffer();
-
-    if (num_sessao < 1 || num_sessao > c[num_filme - 1].num_sessoes)
-    {
+    
+    //verifica se o número da sessão está dentro do intervalo válido para o filme selecionado
+    if (num_sessao < 1 || num_sessao > c[num_filme - 1].num_sessoes){
         printf("Numero de sessao invalido.\n");
         return;
     }
 
+    //atualizar o novo horário da sessão
     printf("Digite o novo horario da sessao: ");
     scanf("%s", c[num_filme - 1].hor_sessoes[num_sessao - 1]);
     clearBuffer();
-
+    
+    //atualizar a quantidade de cadeiras disponiveis na sessão
     printf("Digite a nova quantidade de cadeiras disponiveis: ");
     scanf("%d", &c[num_filme - 1].cadeirasDisponiveis[num_sessao - 1]);
     clearBuffer();
@@ -481,33 +482,35 @@ int main()
 
                     case 2: // Inserir uma nova sessao para um filme ja cadastrado
                         {
-                            if(filme == 0)
+                            if(filme == 0) //verificar se não há nenhum filme cadastrado
                             {
                                 printf("Nenhum filme cadastrado. Cadastre um filme primeiro.\n");
                                 break;
                             }
 
-                            char nome_filme[51];
+                            char nome_filme[51]; //declara uma variavel para armazenar o nome do filme
                             int num_filme;
                             
                             printf("Digite o nome do filme que deseja adicionar uma nova sessao: ");
-                            fgets(nome_filme, sizeof(nome_filme), stdin);
-                            nome_filme[strcspn(nome_filme, "\n")] = '\0';
+                            fgets(nome_filme, sizeof(nome_filme), stdin); //ler o nome do filme inserido pelo usuario
+                            nome_filme[strcspn(nome_filme, "\n")] = '\0'; //remover o caractere de nova linha do nome do filme
 
+                            //procura o filme pelo nome inserido no vetor de FILMES CADASTRADOS
                             for (num_filme = 0; num_filme < filme; num_filme++)
                             {
                                 if (strcmp(c[num_filme].filme, nome_filme)==0)
                                 {
-                                    break;
+                                    break; //sair do loop caso o filme for encontrado
                                 }
                             }
 
-                            if (num_filme == filme)
+                            if (num_filme == filme) //se o filme não for encontrado
                             {
                                 printf("Filme nao encontrado.\n");
                                 break;
                             }
 
+                            //realiza realocações de memoria para acomodar a nova sessão do filme
                             int num_sessoes_atual = c[num_filme].num_sessoes;
                             c[num_filme].cadeirasDisponiveis = (int*)realloc(c[num_filme].cadeirasDisponiveis, c[num_filme].num_sessoes * sizeof(int));                            
                             c[num_filme].num_sessoes++;
@@ -515,10 +518,11 @@ int main()
                             c[num_filme].cadeiras = (int*)realloc(c[num_filme].cadeiras, c[num_filme].num_sessoes * sizeof(int));
                             c[num_filme].cadeirasDisponiveis = (int*)realloc(c[num_filme].cadeirasDisponiveis, c[num_filme].num_sessoes * sizeof(int));
                             c[num_filme].hor_sessoes[num_sessoes_atual] = (char*)malloc(10 * sizeof(char));
-                            
+
+                            //armazena o horário da nova sessão para o filme encontrado
                             printf("Qual o horario da nova sessao para o filme %s? ", c[num_filme].filme);
                             scanf("%9s", c[num_filme].hor_sessoes[c[num_filme].num_sessoes - 1]);
-                            clearBuffer();
+                            clearBuffer(); //limpar o buffer de entrada
 
                             while (1)
                             {
@@ -529,7 +533,7 @@ int main()
                                 if (c[num_filme].cadeiras[num_sessoes_atual] <= 10)
                                 {
                                     c[num_filme].cadeirasDisponiveis[num_sessoes_atual] = c[num_filme].cadeiras[num_sessoes_atual];
-                                    break;
+                                    break; //sai do loop se a quantidade de cadeiras for válida (max 10)
                                 }
                                 else
                                 {
