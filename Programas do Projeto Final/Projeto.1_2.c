@@ -171,7 +171,7 @@ int main()
     int filme = 0;
     int escolhaCaso2 = 0; 
     FILE *p;
-    char sobscrever = "s";
+    char sobscrever = 'n';
     bool gerenteAutenticado = false; // Variavel para controlar a autenticação do gerente 
     struct cadastro_filmes c[30]; // Permite o cadastro de 30 filmes
                                     
@@ -213,6 +213,8 @@ int main()
 
                             printf("==========================================================\n");
                         }
+                        clearBuffer();
+                        retornarMenuCliente();
                         break;
 
                     case 2: // Buscar por um filme, mostrando horários das sessões
@@ -240,9 +242,10 @@ int main()
                                     for(int j = 0; j < c[i].num_sessoes; j++)
                                     {
                                         printf("----------------------------------------------------------\n");
-                                        printf("SESSAO %d:\n", j + 1);
-                                        printf("Horario: %s\n", c[i].hor_sessoes[j]);
-                                        printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
+                                printf("SESSAO %d:\n", j + 1);
+                                printf("Horario: %s\n", c[i].hor_sessoes[j]);
+                                printf("Quantidade total de cadeiras: %d\n", c[i].cadeiras[j]);
+                                printf("Quantidade de cadeiras disponiveis: %d\n", c[i].cadeirasDisponiveis[j]);
                                     }
                                     printf("**********************************************************\n");
                                 }
@@ -270,7 +273,8 @@ int main()
                                             printf("----------------------------------------------------------\n");
                                             printf("SESSAO %d:\n", j + 1);
                                             printf("Horario: %s\n", c[i].hor_sessoes[j]);
-                                            printf("Quantidade de cadeiras: %d\n", c[i].cadeiras[j]);
+                                            printf("Quantidade total de cadeiras: %d\n", c[i].cadeiras[j]);
+                                            printf("Quantidade de cadeiras disponiveis: %d\n", c[i].cadeirasDisponiveis[j]);
                                             }
                                         }
                                     }
@@ -282,6 +286,8 @@ int main()
                             printf("Numero invalido");
                             break;
                         }
+                        clearBuffer();
+                        retornarMenuCliente();
                         break;
 
                     case 3: // Reservar uma cadeira em uma sessão
@@ -342,21 +348,23 @@ int main()
 
                             printf("%d cadeira(s) reservada(s)/comprada(s) com sucesso para a sessao %s do filme %s.\n",
                             num_cadeiras, c[num_filme].hor_sessoes[num_sessao - 1], c[num_filme].filme);
-                            break;
+                            
                         }
-
+                        clearBuffer();
+                        retornarMenuCliente();
                         break;
                     case 4:
                         //Salvar informações das sessões em um arquivo
                         
                         if ((p = fopen("info.txt", "r")))
                         {
-                            printf("Um arquivo com informacoes de sessao ja existe, deseja sobrescrever? (S/n)");
+                            printf("Um arquivo com informacoes de sessao ja existe, deseja sobrescrever? (s/N)\n");
                             scanf("%c", &sobscrever);
-                            if(sobscrever == 'n')
+                            if(sobscrever !='s' && sobscrever != 'S')
                             {
                                 fclose(p);
                                 printf("Operacao cancelada");
+                                clearBuffer();
                                 retornarMenuCliente();
                                 break;
                             } 
@@ -390,6 +398,8 @@ int main()
                         }
                         fclose(p);
                         printf("Informacoes salvas com sucesso em no arquivo ''Info.txt''");
+                        clearBuffer();
+                        retornarMenuCliente();
                         break;
                     case 5: // Retornar ao Menu de Entrada
                         sairMenuCliente = 1;
@@ -400,7 +410,8 @@ int main()
 
                     if(sairMenuCliente)
                         break;
-                    retornarMenuCliente(); // Chama a função para retornar ao menu
+                    /* clearBuffer();
+                    retornarMenuCliente(); */ // Chama a função para retornar ao menu
                 
                 } while(1);
                 break;
