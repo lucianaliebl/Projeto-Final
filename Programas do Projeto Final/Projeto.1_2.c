@@ -290,7 +290,8 @@ int main()
                             clearBuffer();
                             printf("Digite o nome do filme que deseja reservar/comprar cadeiras: ");
                             fgets(nome_filme, sizeof(nome_filme), stdin);
-                            nome_filme[strcspn(nome_filme, "\n")] = '\0';
+                            nome_filme[strcspn(nome_filme, "\n")] = '\0'; //remover o caractere de nova linha do nome do filme
+
 
                             for (num_filme = 0; num_filme < filme; num_filme++)
                             {
