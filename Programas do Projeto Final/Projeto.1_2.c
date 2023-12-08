@@ -80,7 +80,7 @@ void editarSessao(struct cadastro_filmes c[]){
     clearBuffer(); //limpa o buffer de entrada para evitar problemas de leitura
 
     //verificar se o número do filme está dentro do intervalo válido (1 a 4)
-    if (num_filme < 1 || num_filme > 4){
+    if (num_filme < 1 || num_filme > 30){
         printf("Filme invalido.\n");
         return;
     }
@@ -98,6 +98,11 @@ void editarSessao(struct cadastro_filmes c[]){
     //atualizar o novo horário da sessão
     printf("Digite o novo horario da sessao: ");
     scanf("%s", c[num_filme - 1].hor_sessoes[num_sessao - 1]);
+    clearBuffer();
+
+    //atualizar a quantidade de cadeiras na sessão
+    printf("Digite a nova quantidade total de cadeiras: ");
+    scanf("%d", &c[num_filme - 1].cadeiras[num_sessao - 1]);
     clearBuffer();
     
     //atualizar a quantidade de cadeiras disponiveis na sessão
